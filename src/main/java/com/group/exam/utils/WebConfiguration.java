@@ -31,6 +31,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	      registry.addResourceHandler("resources/**") // 핸들러 추가
 	            .addResourceLocations("classpath:/static/") // 클래스패스 설정시 끝에 꼭 / 넣어주자.
 	            .setCachePeriod(20); // 초단위
+	      registry.addResourceHandler("/img/**").addResourceLocations("file:///c:/project/workspace/resources/").setCachePeriod(20);
 	   }
 
 	   @Override
