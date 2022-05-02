@@ -2,6 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
-	alert("회원 탈퇴 성공");
-	document.location.href="<c:url value='/'/>";
+	alert("${msg}");
+	document.location.href="<c:url value='/board/list'/>";
 </script>

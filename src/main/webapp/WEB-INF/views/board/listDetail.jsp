@@ -7,8 +7,7 @@
 <head>
 <link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
 
-
-<meta charset="UTF-8">
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 	<style>
 		#reply{
@@ -22,47 +21,18 @@
 	</style>
 </head>	
 <body>
-
-
-	<c:if test="${!empty memberLogin}">
-		<h2>로그인 성공</h2>
-		<table border="1">
-			<tr>
-				<th>회원 번호</th>
-				<th>회원 ID</th>
-				<th>회원 닉네임</th>
-				<th>회원 생일</th>
-				<th>회원 가입 날짜</th>
-				<th>회원 인증 여부</th>
-				<th>회원 레벨</th>
-			</tr>
-			<tr>
-				<td>${memberLogin.memberSeq}</td>
-				<td>${memberLogin.memberId}</td>
-				<td>${memberLogin.memberNickname}</td>
-				<td>${memberLogin.memberBirthDay}</td>
-				<td>${memberLogin.memberRegDay}</td>
-				<td>${memberLogin.memberAuth}</td>
-				<td>${memberLogin.memberLevel}</td>
-
-
-			</tr>
-		</table>
-		<a href="<c:url value='/member/logout'/>"><button>로그아웃</button></a>
-		<a href="<c:url value='/board/write'/>"><button>글쓰기</button></a>
-
-
-	</c:if>
-
+<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+<div class="container">
 	<table border="1">
 		<tr>
-			<th>보드seq</th>
-			<th>보드제목</th>
-			<th>보드내용</th>
-			<th>닉네임</th>
-			<th>보드 쓴 날짜</th>
-			<th>보드 좋아요</th>
-			<th>보드 카운트</th>
+			<th>NO</th>
+			<th>TITLE</th>
+			<th>작성자</th>
+			<th>내용</th>
+			<th>작성날짜</th>
+			<th>좋아요</th>
+			<th>카운트</th>
 
 
 		</tr>
@@ -75,7 +45,7 @@
 		<c:if test="${ !empty boardList}">
 
 			<tr>
-				<td>${boardList.boardSeq}</td>
+				<td>${boardList.rn}</td>
 
 				<td>${boardList.boardTitle}</td>
 				<td>${boardList.boardContent}</td>
@@ -91,7 +61,7 @@
 						<div class="dropdown">
 							<a href="#" class="dropbtn">${ boardList.memberNickname}</a>
 							<div class="dropdown-content">
-								<a href="<c:url value='/board/mylist?memberSeq=${boardList.memberSeq }'/> ">게시물 보기</a>
+								<a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq }'/> ">게시물 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 									<script type="text/javascript">
 										function popUpInfo(){
@@ -147,7 +117,13 @@
 	</table>
 	
 		<!-- 댓글 입력 폼 -->
-   <br/><br/><br/>
+   <br>
+	
+	
+	<br/>
+	<hr/>
+	<h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
+	<div id="replyList"></div>
 	
 	<div class="col-md-6">
 		<label for="memberNickname" id="memberNickname">작성자 : ${memberLogin.memberNickname}</label><br/>
@@ -155,12 +131,16 @@
 		<textarea class="form-control" id="replyContent" name="replyContent"></textarea>
 		<button type="button" class="btn btn-outline-success" id="replywriteBtn" name="replywriteBtn">댓글 작성</button>
 	</div>
-	<br/>
-	<hr/>
 
-	<h2>Reply list</h2><h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
-	<div id="replyList"></div>
 	
+	
+	
+	
+	
+	
+	
+	
+	<%--댓글 / 좋아요 관련 자바스크립트 --%>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -232,7 +212,7 @@
 							htmls += '<br>작성자 : ' + '<div class = "dropdown"> '
 							htmls += '<a href="#" class="dropbtn">'+ this.memberNickname;
 							htmls += '</a> <div class="dropdown-content">'
-							htmls += '<a href="${pageContext.request.contextPath}/board/mylist?memberSeq='+this.memberSeq +'">게시물 보기</a>'
+							htmls += '<a href="${pageContext.request.contextPath}/board/memberArticle?memberSeq='+this.memberSeq +'">게시물 보기</a>'
 							htmls += '<a href="#" onclick ="popUpInfo();">회원 정보 보기</a>'
 							htmls += '</div></div>'
 							htmls += '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -372,11 +352,8 @@
 				}
 			});
 		}
-	</script>
 
-
-
-	<script type="text/javascript">
+		//글 삭제시 이벤트 처리
 		function button_event() {
 
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
