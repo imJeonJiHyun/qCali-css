@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +49,7 @@
 				<td>${diaryList.diaryTitle}</td>
 				<td>${diaryList.diaryContent}</td>
 				<c:if test="${!empty diaryList.diaryImg }">
-				<td><img src="<c:url value='/resources/upload/${diaryList.diaryImg }'/>" width="200" ></td>
+				<td><img src="/diaryImg${diaryList.diaryImg }" width="200" ></td>
 				</c:if>
 				<c:if test="${empty diaryList.diaryImg }">
 				<td>	</td>

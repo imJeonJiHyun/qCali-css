@@ -127,7 +127,7 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public String upload(String category, MultipartFile file, HttpSession session) {
-		String resources = "C:/project/workspace/resources";
+		String resources = "C:/qCali/resources";
 		String upload = resources + "/upload";
 		String folder = upload + "/" + category + "/" + new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 		
