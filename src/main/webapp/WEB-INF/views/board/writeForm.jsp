@@ -6,7 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+
+
 <title>Insert title here</title>
 
 <script type="text/javascript"
@@ -14,8 +16,9 @@
 </head>
 <body>
 
-
-
+	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+	<div class="container">
 	<form:form commandName="boardData" >
 		<table border="1">
 			<tr>
@@ -41,6 +44,6 @@
 		<input type="hidden" name="questionSeq" value="${questionSeq}" />
 		<input type="submit" value="글쓰기" />
 	</form:form>
-
+</div>
 </body>
 </html>
