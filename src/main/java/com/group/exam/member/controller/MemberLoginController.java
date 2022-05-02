@@ -62,7 +62,7 @@ public class MemberLoginController {
 		
 		// 로그인 세션이 이미 있을 경우
 		if (session.getAttribute("memberLogin") != null) {
-			return "/";
+			return "/main";
 		}
 		return "/member/loginForm";
 	}
