@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-lights">
+	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand"
 				href="${pageContext.request.contextPath }/main">QCali : Admin</a>
