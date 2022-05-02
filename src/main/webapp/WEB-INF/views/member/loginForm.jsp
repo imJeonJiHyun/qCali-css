@@ -5,17 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-	text-align: center;
-}
-
-table {
-	margin: auto;
-	width: 50%;
-	height: 150px;
-}
-</style>
 
   <script>
         function findPwd_popup(){
@@ -27,45 +16,106 @@ table {
         }
   </script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<meta charset="UTF-8">
-<title>로그인</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<!-- css -->
+<link
+	href="<c:url value='/resources/static/css/member-insert-form.css'/>"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
 </head>
-<body>
-	<h2>로그인</h2>
-	<form:form commandName="loginMemberData">
 
-		<table border="1">
-			<tr>
-				<td>아이디 :</td>
-				<td><form:input path="memberId" placeholder="필수입력" /> <form:errors
-						path="memberId" /></td>
-			</tr>
+<title>QCali :: 회원가입</title>
 
-			<tr>
-				<td>비밀번호 :</td>
-				<td><form:input path="memberPassword" type="password"
-						placeholder="필수입력" /> <form:errors path="memberPassword" /></td>
-			</tr>
 
-		</table>
-		<br>
-		${msg}<br>
-		<br>
-		<input type="submit" value="로그인" />
 
-	</form:form>
-	
+</head>
+<body >
+<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
 
-	<a href="#" onclick="findPwd_popup()" target = "_blank"><button>비밀번호 찾기</button></a>
-	<a href="<c:url value='/member/insert'/>"><button>회원가입</button></a>
-	<!--네이버 로그인 추가-->
-	<br>
-    <a href="${naverLoginURL }">
-    <img src="<c:url value='/resources'/>/static/images/btnG_완성형.png" width="180px"	/></a>
-	<div id="kakao_id_login" style="text-align: center">
-		<a href="${kakao_url}"> 
-		<img src="<c:url value='/resources/static/images/kakao_login_medium_narrow.png'/> "/></a>
-	</div>
+<div class="container"  style="text-align: center">
+
+
+		<div class="card o-hidden border-0 shadow-lg my-5"  >
+			<div class="card-body p-0" >
+				<!-- Nested Row within Card Body -->
+				<div class="row">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>  <!-- 강아지 이미지 부분 -->
+					<div class="col-lg-7">
+						<div class="p-5" >
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Login!</h1>
+							</div>
+
+							<form:form class="user" commandName="loginMemberData" >
+								<div class="form-group row">
+									<div class="form-group">
+
+										<form:input path="memberId"
+											class="form-control form-control-user" id="exampleInputEmail"
+											placeholder="Email Address" />
+										<form:errors path="memberId" />
+								
+									</div>
+									
+										
+									<div class="form-group">
+										<form:password path="memberPassword" 
+											class="form-control form-control-user"
+											id="exampleInputPassword" placeholder="Password" />
+										
+									</div>
+		
+								</div>
+									<div class="form-group">
+									<input type="submit" class="btn btn-primary btn-user btn-block"
+										value="Login"  />
+									</div>
+							</form:form>
+
+
+
+							<hr>
+							<a href="${naverLoginURL }" >
+								   <img src="<c:url value='/resources'/>/static/images/btnG_완성형.png" width="180px"	/>
+							</a> 
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="${kakao_url}" ><img src="<c:url value='/resources/static/images/kakao_login_medium_narrow.png'/> "/>
+								 
+							</a>
+
+							<hr>
+                            <div class="text-center">
+                                <a class="small" href="#" onclick="findPwd_popup()" target = "_blank">Forgot Password?</a>
+                            </div>
+                              <div class="text-center">
+                                <a class="small" href="${pageContext.request.contextPath }/member/insert">Create an Account!</a>
+                            </div>
+						</div>
+		
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+</div>
+
+
+
+
+
+
 
 </body>
 

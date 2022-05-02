@@ -6,7 +6,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <title>회원가입</title>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -41,26 +55,25 @@ var submitFlag = false;
 	</script>
 <body>
 
-
-
-		<table border="1">
-
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" id="memberPassword" /></td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td><input type="password" id="memberPasswordCheck" />
-					<button type="button" onclick="pwCheck()">비밀번호 확인</button> 
-					<span id="pwSame"></span></td>
-			</tr>
-
-		</table>
+<h3>QCali 비밀번호 변경</h3>
+<div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password"  class="form-control" id="memberPassword" name="memberPassword" placeholder="변경할 비밀번호를 입력해주세요">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Password&nbsp;Check</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" name="memberPasswordCheck"  id="memberPasswordCheck" placeholder="변경할 비밀번호를 입력해주세요">
+  
 		
-		<br>
-		<input type="button" onClick="submit_close()" value="비밀번호 변경하기" id="insertData" disabled/>
-		<script>
+		<span id="pwSame"></span>
+    </div>
+    <button type="button" class="btn btn-default" onclick="pwCheck()">비밀번호 확인</button> 
+    <br><br>
+    <input type="button" onClick="submit_close()" value="비밀번호 변경하기" id="insertData" disabled  class="btn btn-outline-primary"/>
+<script>
 	function submit_close() {
 
 		$.ajax(
@@ -92,6 +105,11 @@ var submitFlag = false;
 	}
 
 	</script>
+    
+  </div>
+
+
+		
 
 </body>
 </html>

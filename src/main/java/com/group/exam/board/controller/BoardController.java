@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -214,10 +217,9 @@ public class BoardController {
 		model.addAttribute("pageMaker", pageCommand);
 		model.addAttribute("boardTotal", total);
 
-		// 페이지처리 url
+		//페이지처리 url
 		model.addAttribute("lastUrl", "list");
 
-		// 질문 출력 관련
 		if (num == 0) {
 			num = boardService.currentSequence();
 			if (num == 0) {
@@ -339,6 +341,7 @@ public class BoardController {
 		model.addAttribute("boardTotal", total);
 		model.addAttribute("pageMaker", pageCommand);
 
+
 		// 페이지처리 url
 		model.addAttribute("lastUrl", "todayArticle");
 
@@ -396,4 +399,5 @@ public class BoardController {
 
 		return "/board/searchArticleList";
 	}
+
 }
