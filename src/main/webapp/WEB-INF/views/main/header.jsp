@@ -22,7 +22,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Today</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath }/board/todayArticle">Today</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/notice/list">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/board/list">일문일답</a></li>
           			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/diary/list/${memberLogin.memberSeq}">Diary</a></li>

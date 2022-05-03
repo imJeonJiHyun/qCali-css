@@ -94,7 +94,7 @@
 </script>
 
 <style>
-body {
+#calendar-body {
 	margin: 40px 10px;
 	padding: 0;
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
@@ -112,8 +112,10 @@ body {
 </style>
 </head>
 <body>
+<div id='calendar-body'>
 	<div class='calendar-parent'>
 		<div id='calendar'></div>
 	</div>
+</div>
 </body>
 </html>

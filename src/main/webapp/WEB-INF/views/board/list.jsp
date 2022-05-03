@@ -68,14 +68,14 @@ thead {
  left: 50%;
  width:600px; 
  height:60px;
- background:gray; 
+ background:#dcdcdc; 
  border-radius: 10px;
 }
 .balloonReverse:after { 
   border-top: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid gray;
+  border-left: 10px solid #dcdcdc;
   content: '';
   position: absolute;
   right: -20px;
@@ -89,11 +89,12 @@ thead {
 <body>
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
-	<%-- <jsp:include page="/WEB-INF/views/calendar/calendar.jsp"></jsp:include> 캘린더--%>
+
 	<div class="container">
 
 		<%-- 질문 출력 및 글쓰기 버튼 --%>
 		<h4>Today Question</h4>
+			<jsp:include page="/WEB-INF/views/calendar/calendar.jsp"></jsp:include>
 		<div class="balloon">
 		<h3> <small class="text-muted">&nbsp;&nbsp;${boardQuestion.questionContent}</small></h3>
 	</div>
