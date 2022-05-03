@@ -241,8 +241,6 @@ thead {
 				</c:if>
 			</ul>
 		</nav>
-
-
 	</div>
 </body>
 </html>
