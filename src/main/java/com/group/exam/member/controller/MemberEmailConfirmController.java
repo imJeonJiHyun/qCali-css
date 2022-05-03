@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.group.exam.member.service.MemberService;
@@ -16,7 +17,7 @@ public class MemberEmailConfirmController {
 	private MemberService memberService;
 
 	@RequestMapping(value = "/member/EmailConfirm")
-	public String signUpConfirm(HttpServletRequest request, HttpSession session) {
+	public String signUpConfirm(HttpServletRequest request, HttpSession session, Model model) {
 		String memberId = request.getParameter("email");
 		String memberAuthkey = request.getParameter("authKey");
 		if (memberService.idDup(memberId) == 1) { // 가입된 이메일이 있다면
@@ -27,7 +28,8 @@ public class MemberEmailConfirmController {
 
 			session.invalidate(); // 로그인 값 있으면 로그아웃
 		}
-		return "/member/member_alert/signUpSuccess";
+		model.addAttribute("msg", "이메일 인증이 완료되었습니다.");
+		return "/member/member_alert/alertGoMain";
 	}
 
 }

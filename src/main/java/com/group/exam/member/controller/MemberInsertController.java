@@ -66,7 +66,7 @@ public class MemberInsertController {
 
 	@RequestMapping(value = "/member/insert", method = RequestMethod.POST)
 	public String insert(@Valid @ModelAttribute("InsertCommand") InsertCommand insertCommand,
-			BindingResult bindingResult) throws Exception, IOException {
+			BindingResult bindingResult, Model model) throws Exception, IOException {
 
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
@@ -97,7 +97,8 @@ public class MemberInsertController {
 		// DB에 인증키 업데이트
 		memberService.updateAuthkey(insertCommand);
 
-		return "/member/member_alert/emailConfirm";
+		model.addAttribute("msg", "메일로 인증 메일이 발송 되었습니다.");
+		return "/member/member_alert/alertGoMain";
 	}
 
 	@ResponseBody

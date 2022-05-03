@@ -46,7 +46,7 @@
 	
 				<textarea name="boardContent" id="boardContent" class="form-control"> ${ articleInfo.boardContent }</textarea>
 						<script type="text/javascript">	
-			CKEDITOR.replace('boardContent',
+			CKEDITOR.replace('boardContent', {height:400},
 			{filebrowserUploadUrl:'${pageContext.request.contextPath}/board/ckUpload'
 			});
 		</script>

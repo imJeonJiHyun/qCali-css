@@ -8,7 +8,22 @@
 <link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
 
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>QCali :: boardDetail</title>
+
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+
+
 	<style>
 		#reply{
 			display: block;
@@ -23,6 +38,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+
 <div class="container">
 	<table border="1">
 		<tr>
@@ -120,7 +136,7 @@
    <br>
 	
 	
-	<br/>
+
 	<hr/>
 	<h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
 	<div id="replyList"></div>
