@@ -28,12 +28,6 @@ a:active {
 </head>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-
-<!-- <link -->
-<!-- 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" -->
-<!-- 	rel="stylesheet" -->
-<!-- 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" -->
-<!-- 	crossorigin="anonymous"> -->
 	
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
@@ -41,14 +35,15 @@ a:active {
 <body class = "sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 
-	<h2>일문일답</h2>
-	<h4>총 게시물 수 : ${boardTotal }개</h4>
+	<div class="container">
+	<h2 class="m-3">일문일답</h2>
+	<h5 style="float: right;">총 게시물 수 : ${boardTotal }개</h5>
 	
 	<div class="dataTable-container">
 	<table id = "datatablesSimple" class="dataTable-table">
 		<thead>
 		<tr>
-			<th>NO</th>
+			<th>번호</th>
 			<th>제목</th>
 			<th>닉네임</th>
 			<th>작성일</th>
@@ -58,7 +53,7 @@ a:active {
 		</thead>
 		<tfoot>
 		<tr>
-			<th>NO</th>
+			<th>번호</th>
 			<th>제목</th>
 			<th>닉네임</th>
 			<th>작성일</th>
@@ -87,8 +82,8 @@ a:active {
 		</tbody>
 	</table>
 	</div>
-		
-	<nav class="dataTable-pagination">
+	
+	<nav class="dataTable-pagination" style="float: right;">
 	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li class="active"><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -103,5 +98,8 @@ a:active {
 	    </c:if> 
 	  </ul>
 	</nav>
+	
+	</div>
+	
 </body>
 </html>

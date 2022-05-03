@@ -29,7 +29,6 @@ a:active {
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -65,7 +64,8 @@ a:active {
 			<td>${m.memberRegDay }</td>
 			<td>${m.memberAuth }</td>
 			<td>${m.memberLevel}</td>
-			<td><a href="javascript:void(0);" class="btn btn-danger" onclick="deleteConfirm();">삭제</a></td>
+			<td><button type="button" class="btn btn-danger" onclick="deleteConfirm();">삭제</button></td>
+				
 	
 		</tr>
 		<script type="text/javascript">
@@ -84,7 +84,8 @@ a:active {
 </div>
 
 
-	<nav class="dataTable-pagination">
+	<nav class="dataTable-pagination" style="float: right;">
+	
 	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -98,13 +99,7 @@ a:active {
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
 	    </c:if> 
 	  </ul>
-	</nav>
-
-
-
-	<br> <a href="<c:url value='/admin/logout'/> ">로그아웃 하기</a><br>   
-	<br> <a href="<c:url value='/admin/question/list'/> ">질문 추가/승인</a><br>
-	<br> <a href="<c:url value='/admin/board/list'/> ">게시물 보기</a><br>   	
+	</nav> 	
 
 
 

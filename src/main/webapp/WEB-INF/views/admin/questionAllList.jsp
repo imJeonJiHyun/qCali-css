@@ -8,16 +8,47 @@
 <meta charset="UTF-8">
 <title>총 질문 리스트</title>
 </head>
-<body>
-	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+<style>
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">s
 
-	<h3>총 질문 수  : ${questionTotal }</h3>
-	<table border="1">
+</head>
+
+<body class="sb-nav-fixed">
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+	
+	<h2 class="m-3">질문 목록</h2>
+	<div class="dataTable-container">
+	<h5 style="float: right;">총 질문 수  : ${questionTotal }</h5>
+	<table id = "datatablesSimple" class="dataTable-table">
+		<thead>
 		<tr>
 			<th>NO</th>
 			<th>질문 내용</th>
 			<th>작성자</th>
 		</tr>
+		</thead>
+		
+		<tbody>
 		<c:forEach var="q" items="${questions }">
 			<tr>
 				<td>${q.no}</td>
@@ -33,9 +64,12 @@
 			</tr>
 		
 		</c:forEach>
+		</tbody>
 	</table>
-	<div>
-	  <ul>
+	
+	<nav class="dataTable-pagination" style="float: right;">
+
+	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li><a href="questionAll${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
@@ -48,6 +82,7 @@
 	    	<li><a href="questionAll${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
 	    </c:if> 
 	  </ul>
+	</nav>
 	</div>
 	<br> <a href="<c:url value='/admin/logout'/> ">로그아웃 하기</a><br>   
 	<br> <a href="<c:url value='/admin/question/list'/> ">질문 추가/승인</a><br>

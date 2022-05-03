@@ -44,6 +44,7 @@ public class AdminLoginController {
 				// 빈값이면 form 다시 보여주도록
 				return "/admin/loginForm";
 			} else {
+				
 				// 로그인 Command의 값을 session에 담는다.
 				AdminAuthInfoCommand adminAuthInfoCommand = adminService.authenticate(adminLoginCommand.getAdminId(),
 						adminLoginCommand.getAdminPassword());

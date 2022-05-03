@@ -33,8 +33,8 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 
-
-	<div class="card mb-3">
+  <div class="position-absolute top-50 start-50 translate-middle">
+	<div class="card mb-3" style="width : auto;">
 		<div class="row g-0 d-flex align-items-center">
 			<div class="col-lg-4 d-none d-lg-flex">
 				<img
@@ -66,6 +66,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
