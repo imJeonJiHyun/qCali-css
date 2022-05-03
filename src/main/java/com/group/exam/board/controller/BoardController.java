@@ -40,6 +40,7 @@ import com.group.exam.board.service.BoardService;
 import com.group.exam.board.vo.BoardVo;
 import com.group.exam.board.vo.NoticeAdminVo;
 import com.group.exam.calendar.service.CalendarService;
+import com.group.exam.calendar.vo.CalendarVo;
 import com.group.exam.member.command.LoginCommand;
 import com.group.exam.member.service.MemberService;
 import com.group.exam.utils.Criteria;
@@ -61,10 +62,11 @@ public class BoardController {
 		this.calendarService = calendarService;
 		this.boardService = boardService;
 		this.memberService = memberService;
+
 	}
 
 	@GetMapping(value = "/write")
-	public String insertBoard(@ModelAttribute("boardData") BoardVo boardVo, HttpSession session, Model model) {
+	public String insertBoard(@RequestParam Long questionSeq, @ModelAttribute("boardData") BoardVo boardVo, HttpSession session, Model model) {
 
 		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
 		// 로그인 X
@@ -80,6 +82,18 @@ public class BoardController {
 			return "member/member_alert/alertGoBoardList";
 
 		}
+		
+
+		if (num == 0) {
+			num = boardService.currentSequence();
+			if (num == 0) {
+				num = 1;
+			}
+		}
+		logger.info("" + num);
+		QuestionAdayCommand question = boardService.questionselect(num);
+
+		model.addAttribute("boardQuestion", question);
 
 		return "board/writeForm";
 	}
@@ -136,7 +150,7 @@ public class BoardController {
 		response.setContentType("text/html;charset=utf-8");
 
 		// 서버의 업로드할 물리적 위치
-		String resources = "C:/dev1/workspacesQcali/resources/upload";
+		String resources = "C://resources/upload";
 		String folder = resources + "/" + "board" + "/" + new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 
 		// 파일 이름
@@ -236,6 +250,13 @@ public class BoardController {
 		List<NoticeAdminVo> notice = boardService.noticelist();
 		System.out.println(notice);
 		model.addAttribute("notice", notice);
+		
+		List<CalendarVo> listCal = null;
+		listCal = calendarService.calendarList();
+		
+		model.addAttribute("listCal", listCal);
+		
+		
 
 		return "board/list";
 	}

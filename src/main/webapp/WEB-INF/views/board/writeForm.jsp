@@ -9,41 +9,62 @@
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Insert title here</title>
+<title>QCali :: boardWriteForm</title>
 
 <script type="text/javascript"
 	src="<c:url value="/resources"/>/static/js/ckeditor/ckeditor.js"></script>
+	
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
+	
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
-	<div class="container">
-	<form:form commandName="boardData" >
-		<table border="1">
-			<tr>
-				<td>제목</td>
-				<td><form:input path="boardTitle" placeholder="제목 입력" /> <form:errors
-						path="boardTitle" /></td>
+	<br><br>
+	<article>
 
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><form:textarea path="boardContent" /> 
+	<div class="container">
+	<form:form commandName="boardData" role="form">
+		<div class="mb-3">
+	
+			
+			<form:input path="boardTitle" placeholder="제목 입력" class="form-control"/> <form:errors
+						path="boardTitle" />
+
+			</div>
+			<br>
+				<div class="mb-3">
+					<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>		Today Question : ${boardQuestion.questionContent}</p>
+  </blockquote></figure>
+				<form:textarea path="boardContent" class="form-control"/>
 				<script>
 			
 					CKEDITOR.replace('boardContent', {
-						
-						filebrowserUploadUrl : '${pageContext.request.contextPath}/board/ckUpload'
-					});
-				</script> <form:errors path="boardContent" /></td>
 
-			</tr>
-		</table>
+						filebrowserUploadUrl : '${pageContext.request.contextPath}/board/ckUpload'		});
+				</script> <form:errors path="boardContent" /></div>
 
 		<input type="hidden" name="questionSeq" value="${questionSeq}" />
-		<input type="submit" value="글쓰기" />
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<input type="submit" value="글쓰기" class="btn btn-secondary me-md-2"/>
+		<input type="reset" value="다시 쓰기" class="btn btn-secondary"/> 
+		</div>
 	</form:form>
 </div>
+</article>
 </body>
 </html>

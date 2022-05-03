@@ -200,7 +200,7 @@ thead {
 									<div class="dropdown-content">
 										<a
 											href="<c:url value='/board/memberArticle?memberSeq=${list.memberSeq }'/> ">게시물
-											보기</a> <a href=# onclick="popUpInfo();">회원 정보 보기</a>
+											보기</a> <a href="<c:url value='/board/memberArticle?memberSeq=${list.memberSeq }'/>" onclick="popUpInfo();">회원 정보 보기</a>
 										<script type="text/javascript">
 											function popUpInfo() {
 												let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${list.memberSeq}";

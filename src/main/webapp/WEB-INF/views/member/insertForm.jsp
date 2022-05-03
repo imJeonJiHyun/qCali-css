@@ -187,11 +187,13 @@
 										
 
 									</div>
-									<div class="col-sm-0 mb-3 mb-sm-0">
+									
+									<div class="form-group mt-3">
 									<button type="button" class="btn btn-google btn-user btn-block" onclick="pwCheck()">비밀번호 확인</button>
 										<span id="pwSame"></span>
+										
 									</div>
-									
+								
 									<div class="form-group">
 							
 										<form:input path="memberBirthDay"
@@ -223,9 +225,10 @@
 
 
 							<hr>
-							<a href="${naverLoginURL }" class="btn btn-google btn-user btn-block">
-								 Register with Naver
-							</a> <a href="${kakao_url}" class="btn btn-facebook btn-user btn-block">
+							<a href="${naverLoginURL}" class="btn btn-naver btn-user btn-block">
+							    Register with Naver
+							</a>
+							 <a href="${kakao_url}" class="btn btn-kakao btn-user btn-block">
 								 Register with Kakao
 							</a>
 
