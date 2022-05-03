@@ -29,6 +29,7 @@
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
 <div class="container">
+<br><br>
 <%-- 검색 bar --%>
 		<div class="search row">
 			<div class="col-xs-2 col-sm-2">

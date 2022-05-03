@@ -73,9 +73,10 @@
 										<form:password path="memberPassword" 
 											class="form-control form-control-user"
 											id="exampleInputPassword" placeholder="Password" />
+											<form:errors path="memberPassword" />
 										
 									</div>
-		
+								<p class="m-2">${msg}</p>
 								</div>
 									<div class="form-group">
 									<input type="submit" class="btn btn-primary btn-user btn-block"

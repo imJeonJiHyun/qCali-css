@@ -195,9 +195,9 @@ public class MemberMypageController {
 
 	// 회원 탈퇴
 	@GetMapping(value = "/delete")
-	public String deleteMember(HttpSession session) {
-
-		return "/member/mypage";
+	public String deleteMember(@RequestParam String memberSeq) {
+		
+		return "/member/deleteForm";
 
 	}
 
@@ -213,15 +213,14 @@ public class MemberMypageController {
 
 		    memberService.deleteMember(command.getMemberSeq());
 
-
 			session.invalidate(); // 탈퇴 성공시, 로그인 세션 제거
-
-			return "/member/member_alert/memberDeleteNext";
+			model.addAttribute("msg", "회원 탈퇴가 완료되었습니다.");
+			return "/member/member_alert/alertGoMain";
 
 		}
 		model.addAttribute("msg", "비밀번호가 다릅니다.");
 
-		return "/member/mypage";
+		return "/member/deleteForm";
 	}
 
 }

@@ -80,7 +80,7 @@
       events:
     	  //Ajax 데이터 불러올 부분
 	[
-	<c:forEach var="list" items= "${list}">
+	<c:forEach var="list" items= "${listCal}">
 			{
 				title:+'${list.getCount()}',
 				start:'${list.getCalendarDay()}'
