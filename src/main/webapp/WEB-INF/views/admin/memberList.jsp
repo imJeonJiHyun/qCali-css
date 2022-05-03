@@ -29,14 +29,14 @@ a:active {
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
-<<<<<<< HEAD
-
-=======
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 </head>
 
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+	
+	<div class="container mt-5">
+	<h2 class="m-3">Users</h2>
+	<h5 style="float: right;">총 게시물 수 : ${boardTotal }개</h5>
 	
 	<div class="dataTable-container">
 	<table id = "datatablesSimple" class="dataTable-table">
@@ -88,12 +88,8 @@ a:active {
 </div>
 
 
-<<<<<<< HEAD
-	<nav class="dataTable-pagination">
-=======
 	<nav class="dataTable-pagination" style="float: right;">
 	
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -107,18 +103,8 @@ a:active {
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
 	    </c:if> 
 	  </ul>
-<<<<<<< HEAD
 	</nav>
-
-
-
-	<br> <a href="<c:url value='/admin/logout'/> ">로그아웃 하기</a><br>   
-	<br> <a href="<c:url value='/admin/question/list'/> ">질문 추가/승인</a><br>
-	<br> <a href="<c:url value='/admin/board/list'/> ">게시물 보기</a><br>   	
-=======
-	</nav> 	
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
-
+</div>
 
 
 </body>

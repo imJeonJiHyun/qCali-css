@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardByDate</title>
-	 	<style type="text/css">
-			li {list-style: none; float: left; padding: 6px;}
-		</style>
+
+<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<h2>${date }일 게시물</h2>
@@ -40,7 +40,7 @@
 			<td><div class="dropdown">
 					<a href="#" class="dropbtn">${ b.memberNickname}</a>
 					<div class="dropdown-content">
-						<a href="<c:url value='/board/mylist?memberSeq=${b.memberSeq }'/> ">게시물 보기</a>
+						<a href="<c:url value='/board/memberArticle?memberSeq=${b.memberSeq }'/> ">게시물 보기</a>
 						<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 					</div>
 				</div></td>

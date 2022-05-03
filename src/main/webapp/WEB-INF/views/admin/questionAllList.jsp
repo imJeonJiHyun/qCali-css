@@ -31,21 +31,17 @@ a:active {
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">s
 
-<<<<<<< HEAD
-	<h3>총 질문 수  : ${questionTotal }개</h3>
-	<table border="1">
-=======
 </head>
 
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 	
+	<div class="container mt-5">
 	<h2 class="m-3">질문 목록</h2>
 	<div class="dataTable-container">
-	<h5 style="float: right;">총 질문 수  : ${questionTotal }</h5>
+	<h5 style="float: right;">총 질문 수  : ${questionTotal }개</h5>
 	<table id = "datatablesSimple" class="dataTable-table">
 		<thead>
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 		<tr>
 			<th>NO</th>
 			<th>질문 내용</th>
@@ -88,6 +84,7 @@ a:active {
 	    </c:if> 
 	  </ul>
 	</nav>
+	</div>
 	</div>
 	<br> <a href="<c:url value='/admin/logout'/> ">로그아웃 하기</a><br>   
 	<br> <a href="<c:url value='/admin/question/list'/> ">질문 추가/승인</a><br>

@@ -35,4 +35,10 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+	
+};
+
+CKEDITOR.editorConfig = function(config) {
+  config.removePlugins = 'resize';  //  Plug-in 제거
+  config.resize_enabled = false;  //  false로 상태 변경
 };
