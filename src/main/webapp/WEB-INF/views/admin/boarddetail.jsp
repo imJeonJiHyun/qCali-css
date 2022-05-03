@@ -22,6 +22,7 @@ a:active {
   color : green;
   text-decoration: none;
 }
+
 </style>
 
 <meta charset="UTF-8">
@@ -36,25 +37,34 @@ a:active {
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 	
-	<div class="container mt-5" >
-		<div class="p-3 mb-3 bg-light text-dark">
-			<h2 class="fw-bolder mb-3">${boards.boardTitle }</h2>
-				<div class="test-muted fst-italic mb-3">질문 : ${boards. questionContent}</div>
-					<div class="container mt-3">
-						<h6 style="float: right;">
-							작성자 : ${boards.memberNickname } </h6>
-					</div>
-					
-					<div class="container mt-5" >
-						<p class="text-xl-start">${boards.boardContent }</p>
-					</div>
-			</div>
-		<div style="float: right;">
+	<div style="backgroud-color: #d3d3d3;">
+	<div class="container mt-5">
+		<h3>게시물 보기</h3>
+	<br>
+	
+	<div class="shadow-none p-3 mb-2 bg-light rounded" style="border: 1px solid lightgrey;">
+		<h4 class="fw-bolder mt-2">${boards.boardTitle }</h4>
+		<h5 class="text-muted">질문 : ${boards. questionContent}</h5>
 		
-		<label>좋아요  +${boards.boardLike }</label>
-		<label>조회수 ${boards.boardCount }</label>
+	</div>
+			<div class="container mb-3">
+				<h5><strong>작성자  ${boards.memberNickname }</strong> </h5>
+					<h6 class="text-muted">
+						작성일 ${boards.boardRegDay }
+						좋아요 ${boards.boardLike }
+						조회수 ${boards.boardCount }
+						</h6>
+			</div>
+					
+	<div class="shadow-none p-3 mb-5 bg-light rounded" style="border:1px solid lightgrey;">
+		${boards.boardContent }
+	</div>	
+
+		<div style="float: right;">
 
 		<button type="button"  class="btn btn-outline-danger" onClick="deleteConfirm();">글 삭제</button>
+		</div>
+	</div>
 		<script>
 			function deleteConfirm(){
 				if(!confirm("정말 삭제하시겠습니까?")){
@@ -66,10 +76,5 @@ a:active {
 			}
 			</script>
 		</div>
-	</div>
-
-		<br><a href='<c:url value="/admin/board/list"/>'>글 목록 가기</a><br>
-		
-		
 </body>
 </html>

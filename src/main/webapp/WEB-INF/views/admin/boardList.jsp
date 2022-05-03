@@ -92,7 +92,7 @@ a:active {
 	</div>
 		
 	
-	<nav class="dataTable-pagination" style="float: right;">
+	<nav class="dataTable-pagination" style="float: center;">
 	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li class="active"><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
