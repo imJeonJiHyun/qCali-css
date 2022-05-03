@@ -31,6 +31,10 @@ a:active {
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">s
 
+<<<<<<< HEAD
+	<h3>총 질문 수  : ${questionTotal }개</h3>
+	<table border="1">
+=======
 </head>
 
 <body class="sb-nav-fixed">
@@ -41,6 +45,7 @@ a:active {
 	<h5 style="float: right;">총 질문 수  : ${questionTotal }</h5>
 	<table id = "datatablesSimple" class="dataTable-table">
 		<thead>
+>>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 		<tr>
 			<th>NO</th>
 			<th>질문 내용</th>

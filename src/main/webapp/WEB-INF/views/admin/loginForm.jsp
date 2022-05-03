@@ -33,8 +33,13 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 
+<<<<<<< HEAD
+
+	<div class="card mb-3">
+=======
   <div class="position-absolute top-50 start-50 translate-middle">
 	<div class="card mb-3" style="width : auto;">
+>>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 		<div class="row g-0 d-flex align-items-center">
 			<div class="col-lg-4 d-none d-lg-flex">
 				<img
@@ -67,7 +72,10 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
 	</div>
+>>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
