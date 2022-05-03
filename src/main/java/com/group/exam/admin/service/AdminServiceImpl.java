@@ -30,9 +30,10 @@ public class AdminServiceImpl implements AdminService {
 	public AdminAuthInfoCommand authenticate(String aId, String aPassword) {
 		AdminVo adminVo = (AdminVo) adminDao.selectByaId(aId);
 		if (adminVo == null) {
+			//id없음
 			throw new IdpasswordNotMatchingException();
 		}
-		if (!adminVo.matchPassword(aPassword)) {
+		if (!aPassword.equals(adminVo.getAdminPassword())){
 			throw new IdpasswordNotMatchingException();
 		}
 		// TODO Auto-generated method stub
