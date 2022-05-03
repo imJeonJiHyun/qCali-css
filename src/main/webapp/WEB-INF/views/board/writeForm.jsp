@@ -53,10 +53,11 @@
 				<form:textarea path="boardContent" class="form-control"/>
 				<script>
 			
-					CKEDITOR.replace('boardContent', {
-
-						filebrowserUploadUrl : '${pageContext.request.contextPath}/board/ckUpload'		});
+					CKEDITOR.replace('boardContent', {height:400}, {
+						
+						filebrowserUploadUrl : '${pageContext.request.contextPath}/board/ckUpload'	});
 				</script> <form:errors path="boardContent" /></div>
+				
 
 		<input type="hidden" name="questionSeq" value="${questionSeq}" />
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -234,7 +234,7 @@
 
 							<hr>
                             <div class="text-center">
-                                <a class="small" href="#" onclick="findPwd_popup()" target = "_blank">Forgot Password?</a>
+                                <a class="small" onclick="findPwd_popup()" target = "_blank">Forgot Password?</a>
                             </div>
                           
 							<div class="text-center">

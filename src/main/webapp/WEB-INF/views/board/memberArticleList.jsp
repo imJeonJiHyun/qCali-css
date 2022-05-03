@@ -76,7 +76,7 @@
 			<c:forEach var="list" items="${boardList}">
 				
 				<tr>
-					<td>${list.boardSeq}</td>
+					<td>${list.rn}</td>
 
 					<td><a href="<c:url value='/board/detail?boardSeq=${list.boardSeq}'/>">${list.boardTitle}</a>
 

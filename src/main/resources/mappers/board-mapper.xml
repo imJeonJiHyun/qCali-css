@@ -8,10 +8,12 @@
 
 	<select id="noticeSelectInMain"
 		resultType="com.group.exam.board.vo.NoticeAdminVo">
-		select * from (select ROWNUM, N.NOTICE_SEQ, N.NOTICE_TITLE,to_char(N.NOTICE_REG_DAY,'yy.mm.dd') notice_reg_day,
+		select * from (select ROWNUM, N.NOTICE_SEQ,
+		N.NOTICE_TITLE,to_char(N.NOTICE_REG_DAY,'yy.mm.dd') notice_reg_day,
 		A.ADMIN_NICKNAME
 		from NOTICE N join ADMIN A ON N.ADMIN_SEQ = 0
-		order by notice_seq desc)
+		order by
+		notice_seq desc)
 		where ROWNUM between 1 and 2
 	</select>
 	<insert id="insertBoard" parameterType="boardVo">
@@ -26,16 +28,14 @@
 		QUESTION_SEQ from QUESTION where QUESTION_SEQ=
 		#{questionSeq}))
 	</insert>
-	
+
 	<select id="currentBoardSeq" resultType="Long">
-		select B_SEQ.currval from dual 
-		
-		<!--  SELECT  LAST_NUMBER-1
-	 FROM    USER_SEQUENCES
-	 WHERE  SEQUENCE_NAME = 'B_SEQ'-->
+		select B_SEQ.currval from dual
+
+		<!-- SELECT LAST_NUMBER-1 FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'B_SEQ' -->
 
 	</select>
-	
+
 
 	<update id="updateBoard" parameterType="HashMap">
 		update BOARD set
@@ -56,11 +56,14 @@
 		parameterType="com.group.exam.utils.Criteria"
 		resultType="com.group.exam.board.command.BoardlistCommand">
 	
-<![CDATA[select *
-from (select ROWNUM rn, B.BOARD_SEQ, B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY,
-B.BOARD_LIKE, B.BOARD_COUNT, M.MEMBER_NICKNAME, M.MEMBER_SEQ  
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ  order by board_seq desc)
-where rn between #{rowStart} and #{rowEnd} ]]>
+<![CDATA[select * from 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY  from 
+                (select *
+                from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ order by board_seq desc) order by rownum)
+ 			where rn BETWEEN #{rowStart} and #{rowEnd} ]]>
 	</select>
 
 	<!-- -->
@@ -92,12 +95,14 @@ where rn between #{rowStart} and #{rowEnd} ]]>
 		resultType="com.group.exam.board.command.BoardlistCommand">
 
 		<![CDATA[
-select *
-from (select ROWNUM rn, B.BOARD_SEQ, 
-B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
-M.MEMBER_NICKNAME, M.MEMBER_SEQ 
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where M.member_seq = #{memberSeq}  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
+		select * from 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY  from 
+                (select *
+                from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ where M.member_seq = #{memberSeq}  order by board_seq desc) order by rownum)
+ 			where rn BETWEEN  #{rowStart} and #{rowEnd}
 		]]>
 
 	</select>
@@ -162,28 +167,34 @@ from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ where B.BOARD_SE
 
 		<if test='searchOption.equals("memberNickname")'>
 		<![CDATA[
-select *
-from (select ROWNUM rn, B.BOARD_SEQ, 
-B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
-M.MEMBER_NICKNAME, M.MEMBER_SEQ 
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where M.MEMBER_NICKNAME = #{searchWord}  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
+		select * from 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY  from 
+                (select *
+                from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ where M.MEMBER_NICKNAME = #{searchWord}  order by board_seq desc) order by rownum)
+ 			where rn BETWEEN  #{rowStart} and #{rowEnd}
 		]]>
 		</if>
 
 		<if test='searchOption.equals("boardTitle")'>
-		<![CDATA[select *
-from (select ROWNUM rn, B.BOARD_SEQ, 
-B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
-M.MEMBER_NICKNAME, M.MEMBER_SEQ 
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%'  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
+		<![CDATA[
+select * from 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY  from 
+                (select *
+                from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%'  order by board_seq desc) order by rownum)
+ 			where rn BETWEEN #{rowStart} and #{rowEnd}
 		]]>
 		</if>
 	</select>
-	
-		<!--서치 글 수 -->
-	<select id="boardSearchCount" parameterType="HashMap" resultType="Integer">
+
+	<!--서치 글 수 -->
+	<select id="boardSearchCount" parameterType="HashMap"
+		resultType="Integer">
 
 		<if test='searchOption.equals("memberNickname")'>
 			select count(*) from
@@ -196,24 +207,32 @@ where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%'  order by board_seq desc) where
 			'%'||#{searchWord}||'%'
 		</if>
 	</select>
-	
-		<!-- 오늘 날짜 게시글 검색 -->
-		<select id="boardListTodayArticle" parameterType="com.group.exam.utils.Criteria"
+
+	<!-- 오늘 날짜 게시글 검색 -->
+	<select id="boardListTodayArticle"
+		parameterType="com.group.exam.utils.Criteria"
 		resultType="com.group.exam.board.command.BoardlistCommand">
 
 		<![CDATA[
-select *
-from (select ROWNUM rn, B.BOARD_SEQ, 
-B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
-M.MEMBER_NICKNAME, M.MEMBER_SEQ 
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd')= to_char(sysdate, 'yyyy.mm.dd')  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
+		
+		select * from 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY  from 
+                (select *
+                from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ where to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd')= to_char(sysdate, 'yyyy.mm.dd') order by board_seq desc) order by rownum)
+ 			where rn BETWEEN  #{rowStart} and #{rowEnd}
+		
+		
 		]]>
-		</select>
-	
-	<select id="boardTodayCount" resultType="Integer">
-		select count(*) from BOARD where to_char(BOARD_REG_DAY, 'yyyy.mm.dd')= to_char(sysdate, 'yyyy.mm.dd')
 	</select>
-	
+
+	<select id="boardTodayCount" resultType="Integer">
+		select count(*) from
+		BOARD where to_char(BOARD_REG_DAY, 'yyyy.mm.dd')= to_char(sysdate,
+		'yyyy.mm.dd')
+	</select>
+
 
 </mapper>

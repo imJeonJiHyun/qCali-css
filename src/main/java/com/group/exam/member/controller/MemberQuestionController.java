@@ -39,7 +39,7 @@ public class MemberQuestionController {
 			return "errors/questionError"; //업데이트 에러페이지
 		}
 		
-		return "/member/member_alert/questionAddNext";
+		return "/member/member_alert/alertGoMain";
 	}
 	
 	
