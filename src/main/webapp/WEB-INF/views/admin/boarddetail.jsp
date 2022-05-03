@@ -33,35 +33,41 @@ a:active {
 <title>QCali :: 게시물 보기</title>
 
 </head>
-<script>
-	function deleteConfirm(){
-		if(!confirm("정말 삭제하시겠습니까?")){
-			return false;
-		}
-		else{
-			location.href="<c:url value='/admin/board/delete?boardSeq='/>"+${boards.boardSeq};
-		}
-	}
-</script>
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
-		
+	
 	<div class="container mt-5" >
-	<h2 class="fw-bolder mb-1">${boards.boardTitle }</h2>
-	<div class="test-muted fst-italic mb-2">질문 : ${boards. questionContent}</div>
-	<div class="container mt-2">
-	<p class="fs-5" style="float: right;">작성자 : ${boards.memberNickname } </p>
-	</div>
-	<p class="text-xl-start">
-		${boards.boardContent }	
-	</p>
-
-		<button  id="boardDelete" onclick="window:location='<c:url value='/admin/board/delete?boardSeq=${boards.boardSeq }'/>'">글 삭제</button>
+		<div class="p-3 mb-3 bg-light text-dark">
+			<h2 class="fw-bolder mb-3">${boards.boardTitle }</h2>
+				<div class="test-muted fst-italic mb-3">질문 : ${boards. questionContent}</div>
+					<div class="container mt-3">
+						<h6 style="float: right;">
+							작성자 : ${boards.memberNickname } </h6>
+					</div>
+					
+					<div class="container mt-5" >
+						<p class="text-xl-start">${boards.boardContent }</p>
+					</div>
+			</div>
+		<div style="float: right;">
 		
-		<a href="javascript:void(0);" class="btu btn-danger" onClick="deleteConfirm();">글 삭제</a>
 		<label>좋아요  +${boards.boardLike }</label>
 		<label>조회수 ${boards.boardCount }</label>
+
+		<button type="button"  class="btn btn-outline-danger" onClick="deleteConfirm();">글 삭제</button>
+		<script>
+			function deleteConfirm(){
+				if(!confirm("정말 삭제하시겠습니까?")){
+				return false;
+				}
+				else{
+				location.href="<c:url value='/admin/board/delete?boardSeq='/>"+${boards.boardSeq};
+				}
+			}
+			</script>
+		</div>
 	</div>
+
 		<br><a href='<c:url value="/admin/board/list"/>'>글 목록 가기</a><br>
 		
 		

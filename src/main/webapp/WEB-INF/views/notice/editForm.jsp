@@ -43,12 +43,7 @@
 				<td>내용</td>
 				<td><textarea name="noticeContent">${notice.noticeContent } </textarea>
 					<script>
-						CKEDITOR
-								.replace(
-										'noticeContent',
-										{
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/notice/fileupload'
-										});
+						CKEDITOR.replace('noticeContent',{filebrowserUploadUrl : '${pageContext.request.contextPath}/notice/fileupload'});
 					</script>
 				</td>
 			</tr>

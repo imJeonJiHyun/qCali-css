@@ -8,6 +8,17 @@ public class CalendarBoardVo {
 	private Long boardLike;
 	private String quesionContent;
 	private String boardContent;
+	private Long memberSeq;
+	
+	
+	public Long getMemberSeq() {
+		return memberSeq;
+	}
+
+	public void setMemberSeq(Long memberSeq) {
+		this.memberSeq = memberSeq;
+	}
+
 	private int rn;
 	
 	public Long getBoardSeq() {

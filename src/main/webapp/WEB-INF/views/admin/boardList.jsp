@@ -28,15 +28,13 @@ a:active {
 </head>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-<<<<<<< HEAD
 
 <!-- <link -->
 <!-- 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" -->
 <!-- 	rel="stylesheet" -->
 <!-- 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" -->
 <!-- 	crossorigin="anonymous"> -->
-=======
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
+
 	
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
@@ -44,19 +42,13 @@ a:active {
 <body class = "sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 
-<<<<<<< HEAD
-	<h2>일문일답</h2>
-	<h4>총 게시물 수 : ${boardTotal }개</h4>
-=======
-	<div class="container">
+	<div class="container mt-5">
 	<h2 class="m-3">일문일답</h2>
 	<h5 style="float: right;">총 게시물 수 : ${boardTotal }개</h5>
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 	
 	<div class="dataTable-container">
 	<table id = "datatablesSimple" class="dataTable-table">
 		<thead>
-<<<<<<< HEAD
 		<tr>
 			<th>NO</th>
 			<th>제목</th>
@@ -67,26 +59,15 @@ a:active {
 		</tr>
 		</thead>
 		<tfoot>
-=======
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 		<tr>
-			<th>번호</th>
+			<th>NO</th>
 			<th>제목</th>
 			<th>닉네임</th>
 			<th>작성일</th>
 			<th>조회수</th>
 			<th>좋아요</th>
-		</tr>
-		</thead>
-		<tfoot>
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>닉네임</th>
-			<th>작성일</th>
-			<th>조회수</th>
-			<th>좋아요</th>
-		</tr>
+		</tr>		
+		</tfoot>
 		
 		<tbody>
 		<c:forEach var="b" items="${boards}">
@@ -109,13 +90,9 @@ a:active {
 		</tbody>
 	</table>
 	</div>
-<<<<<<< HEAD
 		
-	<nav class="dataTable-pagination">
-=======
 	
 	<nav class="dataTable-pagination" style="float: right;">
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 	  <ul class="dataTable-pagination-list">
 	    <c:if test="${pageMaker.prev}">
 	    	<li class="active"><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -130,11 +107,6 @@ a:active {
 	    </c:if> 
 	  </ul>
 	</nav>
-<<<<<<< HEAD
-=======
-	
 	</div>
-	
->>>>>>> c2a7b2c5ea37ad2fe3067297a2576d6b00312abd
 </body>
 </html>

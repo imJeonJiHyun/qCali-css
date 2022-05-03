@@ -8,16 +8,52 @@
 <meta charset="UTF-8">
 <link href="<c:url value='/resources/static/css/dropdown.css'/> "
 	rel="stylesheet" type="text/css">
-<title>QNA Detail</title>
+<style>
+table {
+	width: 50%;
+	float:right;
+}
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">
+<title>QCali :: 문의사항 </title>
 </head>
-<body>
-	<h2>Q&A</h2>
-	<table class="table">
+<body class="sb-nav-fixed">
+<header>
+	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+</header>
+
+	
+	<div class="container mt-3">
+		<h2>Q&A 문의 내용</h2>
+	<br>
+	
+	<div class="shadow-none p-3 mb-5 bg-light rounded">
+		<h2 class="fw-bolder">${vo.qnaTitle }</h2>
+	</div>
+		
+	
+	<table align="right" >
 		<thead>
-		<tr>
-			<th>제목</th>
-			<td colspan="6">${vo.qnaTitle }</td>
-		</tr>
 		<tr>
 			<th>작성자</th>
 			<c:if test="${! empty vo.qnaWriter  }">
@@ -26,9 +62,9 @@
 			<c:if test="${empty vo.qnaWriter }">
 				<c:if test="${!empty vo.memberNickname }">
 					<td><div class="dropdown">
-							<a class="dropbtn">${ list.memberNickname}</a>
+							<a class="dropbtn">${ vo.memberNickname}</a>
 							<div class="dropdown-content">
-								<a href="<c:url value='/board/mylist/memberSeq=${list.memberSeq }'/> ">게시물 보기</a> 
+								<a href="<c:url value='/board/mylist/memberSeq=${vo.memberSeq }'/> ">게시물 보기</a> 
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
@@ -52,21 +88,19 @@
 			<th>조회수</th>
 			<td>${vo.qnaReadcnt }</td>
 		</tr>
-
-		<tr>
-			<th>내용</th>
-			<td colspan="5">${vo.qnaContent }</td>
-		</tr>
-
-		<tr>
-			<th>첨부 파일</th>
-			<td><c:if test="${!empty vo.qnaFileName }">
-					<a href="<c:url value='/qna/download?qnaSeq=${vo.qnaSeq}'/>">
-						${vo.qnaFileName } </a>
-				</c:if></td>
-		</tr>
 	</table>
 
+	
+	<div class="shadow-none p-3 mb-5 bg-light rounded">
+		${vo.qnaContent }	
+	</div>
+	
+	첨부 파일
+			<c:if test="${!empty vo.qnaFileName }">
+					<a href="<c:url value='/qna/download?qnaSeq=${vo.qnaSeq}'/>">
+						${vo.qnaFileName } </a>
+				</c:if>
+				
 
 	<c:if test="${!empty admin }">
 		<a href="javascript:void(0);" class="btu btn-danger"
@@ -84,7 +118,7 @@
 		<a href="<c:url value='/qna/modify?qnaSeq=${vo.qnaSeq }' /> ">수정하기</a>
 	</c:if>
 
-
+</div>
 <script>
 	function deleteConfirm(){
 		if(!confirm("정말 삭제하시겠습니까?")){

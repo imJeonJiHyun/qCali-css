@@ -43,8 +43,7 @@ a:active {
 </head>
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
-	<br><br>
-	<div class="container">
+	<div class="container mt-5">
 	<a style="float: right;" href="${pageContext.request.contextPath}/admin/questionAll"> > 질문 목록 보기</a>
 	
 	<h2>질문 추가하기</h2>
