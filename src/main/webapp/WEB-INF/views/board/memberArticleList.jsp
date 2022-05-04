@@ -94,7 +94,7 @@
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 				<c:if test="${pageMaker.prev }">
-					<li class="page-item disabled"><a class="page-link"
+					<li class="page-item"><a class="page-link"
 						href="memberArticle${pageMaker.makeQuery(pageMaker.startPage - 1) }&memberSeq=${searchMember}">Previous</a>
 					</li>
 				</c:if>

@@ -26,19 +26,18 @@ public class MemberQuestionController {
 	@RequestMapping(value = "/member/questionAdd", method = RequestMethod.POST)
 	public String questionAdd (@RequestParam(required = false) String questionContent, HttpSession session, Model model) {
 		
-		if (questionContent == null) {
-			model.addAttribute("msg", "내용을 입력해 주세요.");
+		
+		if (questionContent.length() <= 10) {
+			model.addAttribute("msg", "10자 이상 입력해 주세요.");
 			return "/member/questionAddForm";
 		}
 		
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
 		
-		int result = memberService.memberQuestionAdd(questionContent, command.getMemberSeq());
+		memberService.memberQuestionAdd(questionContent, command.getMemberSeq());
 		
-		if(result != 1) {
-			return "errors/questionError"; //업데이트 에러페이지
-		}
-		
+	
+		model.addAttribute("msg", "관리자 승인 후 등록 완료 됩니다.");
 		return "/member/member_alert/alertGoMain";
 	}
 	

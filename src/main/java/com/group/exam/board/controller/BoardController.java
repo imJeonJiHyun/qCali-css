@@ -251,6 +251,8 @@ public class BoardController {
 		System.out.println(notice);
 		model.addAttribute("notice", notice);
 		
+		
+		// 캘린더 
 		List<CalendarVo> listCal = null;
 		listCal = calendarService.calendarList();
 		
@@ -379,10 +381,12 @@ public class BoardController {
 		model.addAttribute("boardQuestion", question);
 		System.out.println(question);
 
-		// 공지사항
-		List<NoticeAdminVo> notice = boardService.noticelist();
-		System.out.println(notice);
-		model.addAttribute("notice", notice);
+		
+		// 캘린더 
+		List<CalendarVo> listCal = null;
+		listCal = calendarService.calendarList();
+		
+		model.addAttribute("listCal", listCal);
 
 		return "board/list";
 	}
