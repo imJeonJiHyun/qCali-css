@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.group.exam.admin.command.AdminAuthInfoCommand;
 import com.group.exam.board.command.BoardLikeCommand;
 import com.group.exam.board.command.BoardlistCommand;
 import com.group.exam.board.command.BoardreplyInsertCommand;
@@ -24,9 +25,9 @@ import com.group.exam.board.vo.BoardHeartVo;
 import com.group.exam.board.vo.ReplyVo;
 import com.group.exam.member.command.LoginCommand;
 import com.group.exam.member.service.MemberService;
+
 @Controller
 public class BoardListDetailController {
-
 
 	private BoardService boardService;
 
@@ -34,12 +35,10 @@ public class BoardListDetailController {
 
 	@Autowired
 	public BoardListDetailController(BoardService boardService, MemberService memberService) {
-		
+
 		this.boardService = boardService;
 		this.memberService = memberService;
 	}
-
-
 
 	// 게시글 디테일
 	@GetMapping(value = "/board/detail")
@@ -52,9 +51,10 @@ public class BoardListDetailController {
 		// 세션 값 loginMember에 저장
 
 		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
+		AdminAuthInfoCommand adminAuthInfoCommand = (AdminAuthInfoCommand) session.getAttribute("adminAuthInfoCommand");
 
 		// 로그인 세션 없을 때 ->main
-		if (loginMember == null) {
+		if (loginMember == null && adminAuthInfoCommand == null) {
 			model.addAttribute("msg", "로그인이 후에 이용 가능합니다.");
 			return "member/member_alert/alertGoMain";
 		}
@@ -76,12 +76,18 @@ public class BoardListDetailController {
 		BoardHeartVo likeVo = new BoardHeartVo();
 
 		likeVo.setBoardSeq(boardSeq);
-		likeVo.setMemberSeq(loginMember.getMemberSeq());
 
+		if (adminAuthInfoCommand != null) {
+			likeVo.setMemberSeq(adminAuthInfoCommand.getAdminSeq());
+		} else {
+			likeVo.setMemberSeq(loginMember.getMemberSeq());
+		}
+		
 		int boardlike = boardService.getBoardLike(likeVo);
 
 		model.addAttribute("boardHeart", boardlike);
 
+	
 		return "board/listDetail";
 	}
 
@@ -105,7 +111,6 @@ public class BoardListDetailController {
 			command.setHeart(1);
 		}
 
-		// String result = Integer.toString(heart);
 
 		return command.getHeart();
 
@@ -116,7 +121,7 @@ public class BoardListDetailController {
 	@ResponseBody
 	public List<ReplyVo> boardReply(@PathVariable Long boardSeq, HttpSession session, Model model) {
 		List<ReplyVo> replyList = boardService.replyList(boardSeq);
-		// logger.info(replyList.toString());
+
 		return replyList;
 	}
 
@@ -125,10 +130,18 @@ public class BoardListDetailController {
 	@ResponseBody
 	public void replyInsert(@RequestBody BoardreplyInsertCommand command, HttpSession session) {
 		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
+		AdminAuthInfoCommand adminAuthInfoCommand = (AdminAuthInfoCommand) session.getAttribute("adminAuthInfoCommand");
 
 		ReplyVo insertReply = new ReplyVo();
 		insertReply.setBoardSeq(command.getBoardSeq());
-		insertReply.setMemberSeq(loginMember.getMemberSeq());
+		
+
+		if (adminAuthInfoCommand != null) {
+			insertReply.setMemberSeq(adminAuthInfoCommand.getAdminSeq());
+		} else {
+			insertReply.setMemberSeq(loginMember.getMemberSeq());
+		}
+
 		insertReply.setReplyContent(command.getReplyContent());
 
 		boardService.replyInsert(insertReply);

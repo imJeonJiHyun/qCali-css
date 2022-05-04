@@ -78,6 +78,7 @@
 							<a href="#" class="dropbtn">${ boardList.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq }'/> ">게시물 보기</a>
+								<a href="${pageContext.request.contextPath }/diary/list/${boardlist.memberSeq}">일기장 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 									<script type="text/javascript">
 										function popUpInfo(){
@@ -161,7 +162,7 @@
 	<script>
 		$(document).ready(function() {
 			var heartval = ${boardHeart};
-			
+			console.log(heartval);
 			if (heartval > 0) {
 				console.log(heartval);
 			    $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/like2.png");
@@ -209,6 +210,17 @@
 			var boardSeq = ${boardList.boardSeq};
 			var memberSeq = ${memberLogin.memberSeq};
 			
+
+			<%--if (adminAuthInfoCommand != null ) {
+			 memberSeq = ${adminAuthInfoCommand.adminSeq};
+				
+			} 
+			
+			if (memberLogin != null){
+				 memberSeq = ${memberLogin.memberSeq};
+			}--%>
+			
+			
 			$.ajax({
 				url : replyurl+boardSeq,
 				type : 'POST',
@@ -229,6 +241,7 @@
 							htmls += '<a href="#" class="dropbtn">'+ this.memberNickname;
 							htmls += '</a> <div class="dropdown-content">'
 							htmls += '<a href="${pageContext.request.contextPath}/board/memberArticle?memberSeq='+this.memberSeq +'">게시물 보기</a>'
+							htmls += '<a href="${pageContext.request.contextPath }/diary/list/'+ this.memberSeq +'">일기장 보기</a>'
 							htmls += '<a href="#" onclick ="popUpInfo();">회원 정보 보기</a>'
 							htmls += '</div></div>'
 							htmls += '&nbsp;&nbsp;&nbsp;&nbsp;';

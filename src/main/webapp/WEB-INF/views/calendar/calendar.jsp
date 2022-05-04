@@ -95,16 +95,17 @@
 
 <style>
 #calendar-body {
-	margin: 40px 10px;
+	margin: 5%;
 	padding: 0;
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 10px;
 }
 
 #calendar {
-	max-width: 1100px;
+	max-width: 100%;
 	margin: 0 auto;
-	width:350px;
+	width:100%;
+	height: 500px
 }
 #fc-header-toolbar fc-toolbar fc-toolbar-ltr{
 	font-size: .9em;

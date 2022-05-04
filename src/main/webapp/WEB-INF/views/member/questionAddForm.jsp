@@ -37,7 +37,7 @@
 
 <div class="mb-3">
   <label class="form-label"><h3>Question 등록</h3></label>
-  <textarea class="form-control"  name="questionContent" id="exampleFormControlTextarea1" rows="3" required placeholder="10이상 입력해주세요."></textarea>
+  <textarea class="form-control"  name="questionContent" id="exampleFormControlTextarea1" rows="3" required placeholder="10자 이상 입력해주세요."></textarea>
   ${msg}
 </div>
 	<br>
