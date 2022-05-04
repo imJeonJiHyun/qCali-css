@@ -1,14 +1,13 @@
 package com.group.exam.admin.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.group.exam.admin.command.AdminAuthInfoCommand;
 import com.group.exam.admin.command.AdminBoardCommand;
 import com.group.exam.admin.command.AdminQuestionMember;
+import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.member.vo.MemberVo;
 import com.group.exam.question.vo.QuestionRegistCommand;
-import com.group.exam.question.vo.QuestionVo;
 import com.group.exam.utils.Criteria;
 
 public interface AdminService {
@@ -32,4 +31,9 @@ public interface AdminService {
 	public int memberListTotal();
 	public int questionListTotal();
 	
+	//Rank
+	public List<AdminRankCommand> memberRank();
+	public List<AdminRankCommand> memberRankReply();
+	public List<AdminRankCommand> memberRankDiary();
+
 }

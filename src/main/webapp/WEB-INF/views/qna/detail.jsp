@@ -49,7 +49,7 @@ a:active {
 	<br>
 	
 	<div class="shadow-none p-3 mb-5 bg-light rounded" style="border: 1px solid lightgrey;">
-		<h2 class="fw-bolder">${vo.qnaTitle }</h2>
+		<h4 class="fw-bolder">${vo.qnaTitle }</h4>
 	</div>
 		
 	
@@ -66,6 +66,7 @@ a:active {
 							<a class="dropbtn">${ vo.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/mylist/memberSeq=${vo.memberSeq }'/> ">게시물 보기</a> 
+								<a href="${pageContext.request.contextPath }/diary/list/${vo.memberSeq }">일기장 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
@@ -108,7 +109,7 @@ a:active {
 	<c:if test="${!empty admin }">
 		<c:if test="${ vo.qnaIndent == 0}">
 			<button type="button" class="btn btn-dark m-1" style="float:right;"
-			onClick="location.href='${pageContext.request.contextPath}/qna/reply?qnaSeq=${vo.qnaSeq }'/>">답글쓰기 
+			onClick="location.href='${pageContext.request.contextPath}/qna/reply?qnaSeq=${vo.qnaSeq }'">답글쓰기 
 			</button>
 		</c:if>
 

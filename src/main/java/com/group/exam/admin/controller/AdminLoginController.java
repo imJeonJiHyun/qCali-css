@@ -57,7 +57,7 @@ public class AdminLoginController {
 				// 세션에 set
 				session.setAttribute("adminAuthInfoCommand", adminAuthInfoCommand);
 
-				return "/admin/main";
+				return "redirect:/admin/main";
 			}
 
 		} catch (IdpasswordNotMatchingException e) {

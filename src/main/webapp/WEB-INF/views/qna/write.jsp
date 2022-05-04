@@ -32,15 +32,25 @@ a:active {
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
 	<script>
+	
 		function nullCheck(){
-			if(writeForm.qnaTitle.value==""){
+			var title = document.writeForm.qnaTitle.value;
+				var titletrim = title.trim();
+			var content = 	CKEDITOR.instances.qnaContent.getData();
+			var contenttrim = content.trim();
+			if(titletrim == ""){
 				alert("제목을 입력해주세요.");
 				writeForm.qnaTitle.focus();
 				return false;
-			}else if(writeForm.qnaContent.value==""){
+			}else if(CKEDITOR.instances.qnaContent.getData() == '' || CKEDITOR.instances.qnaContent.getData().length == 0){
 				alert("내용을 입력해주세요.");
-				writeForm.qnaContent.focus();
+				CKEDITOR.instances.qnaContent.focus();
 				return false;
+			}else if(contenttrim == ''){
+				alert("내용을 입력해주세요.");
+				CKEDITOR.instances.qnaContent.focus();
+				return false;
+
 			}
 		}
 	</script>
@@ -56,11 +66,11 @@ a:active {
 	<form class="container mt-3" action="<c:url value='/qna/write' />" method="POST" enctype="multipart/form-data"
 	name ="writeForm" onsubmit="return nullCheck()" >
 	
-		<input class="form-control form-control-lg" placeholder="제목" type="text" name="qnaTitle"
+		<input class="form-control form-control-lg" placeholder="제목" type="text" name="qnaTitle" required
 		aria-label=".form-control-lg example" />
 	<br>
-	<textarea rows="50" cols="50" name="qnaContent" style="resize: none;"></textarea>
-			<script>CKEDITOR.replace('qnaContent', {height:400},{filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
+	<textarea rows="50" cols="50" name="qnaContent" style="resize: none;" required></textarea>
+			<script>CKEDITOR.replace('qnaContent',{filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
 		<br>
 		<div class="mb-3">
 			<input class="form-control" type="file" name="uploadfile" />

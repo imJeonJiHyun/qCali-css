@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.admin.service.AdminService;
 import com.group.exam.member.vo.MemberVo;
 import com.group.exam.utils.Criteria;
@@ -48,5 +49,7 @@ public class AdminMemberController {
 		adminService.memberDelete(memberSeq);
 		return "redirect:/admin/member/list";
 	}
+	
+
 	
 }

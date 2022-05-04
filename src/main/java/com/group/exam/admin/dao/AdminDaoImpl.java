@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group.exam.admin.command.AdminBoardCommand;
 import com.group.exam.admin.command.AdminQuestionMember;
+import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.member.vo.MemberVo;
 import com.group.exam.question.vo.QuestionVo;
 import com.group.exam.utils.Criteria;
@@ -104,6 +105,24 @@ public class AdminDaoImpl implements AdminDao {
 	public int questionListTotal() {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("questionListTotal");
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRank() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("memberRank");
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRankReply() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("memberRankReply");
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRankDiary() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("memberRankDiary");
 	}
 
 }

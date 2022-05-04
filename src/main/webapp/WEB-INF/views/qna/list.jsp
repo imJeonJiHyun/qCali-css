@@ -33,7 +33,7 @@ a:active {
 <link href="<c:url value='/resources/static/css/styles.css'/> "
 	rel="stylesheet" type="text/css">
 </head>
-<title>QClia :: Q&A</title>
+<title>QCali :: Q&A</title>
 </head>
 <body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
@@ -107,6 +107,7 @@ a:active {
 							<a class="dropbtn">${ list.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/memberArticle?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
+								<a href="${pageContext.request.contextPath }/diary/list/${list.memberSeq}"> 일기장 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
@@ -134,7 +135,7 @@ a:active {
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 	    <c:if test="${pageMaker.prev}">
-	    	<li class="page-item disabled"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
 	
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">

@@ -118,19 +118,19 @@ a:active {
 	</div>
 	
 	
-	<nav class="dataTable-pagination" style="float: right;">
-	  <ul class="dataTable-pagination-list">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 	    <c:if test="${pageMaker.prev}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
 	
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-	    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
 	    </c:forEach>
 	
 	    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-	    </c:if> 
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+	    </c:if>  
 	  </ul>
 	</nav>
 

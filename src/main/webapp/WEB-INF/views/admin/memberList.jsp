@@ -36,7 +36,7 @@ a:active {
 	
 	<div class="container mt-5">
 	<h2 class="m-3">Users</h2>
-	<h5 style="float: right;">총 게시물 수 : ${boardTotal }개</h5>
+	<h5 style="float: right;">사용자 수 : ${boardTotal }명</h5>
 	
 	<div class="dataTable-container">
 	<table id = "datatablesSimple" class="dataTable-table">
@@ -88,20 +88,19 @@ a:active {
 </div>
 
 
-	<nav class="dataTable-pagination" style="float: right;">
-	
-	  <ul class="dataTable-pagination-list">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 	    <c:if test="${pageMaker.prev}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
 	
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-	    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
 	    </c:forEach>
 	
 	    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
-	    </c:if> 
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+	    </c:if>  
 	  </ul>
 	</nav>
 </div>
