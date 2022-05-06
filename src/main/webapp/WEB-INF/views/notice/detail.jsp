@@ -43,12 +43,11 @@
 				<caption>공지사항    |  ${notice.noticeSeq} 번째 글</caption>
 			</table>
         	<p class="board_title">${notice.noticeTitle}</p>
-        	<p class="board_info_box">${notice.noticeRegDay} by <a href='/member/popup?memberSeq=${notice.noticeSeq}'>닉네임</a></p> <!-- notice에는 닉네임 받는 곳이 없어서 임시로 지정 -->
-        	<p class="board_tag">조회수 : <c:out value="${notice.noticeSeq}"/>,  댓글 : <c:out value="${notice.noticeSeq}"/>,  공감 수 : <c:out value="${notice.noticeSeq}"/></p> <!-- 임시로 지정 -->    
+        	<p class="board_info_box">${notice.noticeRegDay} by <a>관리자</a></p>
         	<hr><p>${notice.noticeContent}</p>
     	</div>
 		
-		<div style="margin-top:2%; padding-left:20%; float:right;">
+		<div style="margin-top:2%; padding-left:20%; padding-bottom:10%; float:right;">
 			<c:if test="${adminAuthInfoCommand != null}">
 			<button type="button" class="btn btn-outline-info" id="noticeUpdate" onclick="window:location='<c:url value='/notice/update?noticeSeq=${notice.noticeSeq}'/>'">수정</button>
 			<button type="button" class="btn btn-outline-info" onClick="deleteConfirm();">삭제</button>

@@ -5,25 +5,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
-
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-	<style>
-		#reply{
-			display: block;
-			width:400px;
-			border-bottom : 1px solid black;
-		}
-		#reply_content{
-			border : 1px solid black;
-		}
-	</style>
+<style>
+#reply{
+	display: block;
+	width:400px;
+	border-bottom : 1px solid black;
+}
+#reply_content{
+	border : 1px solid black;
+}
+.box {
+  width: 1300px;
+  padding-top: 3%;
+  padding-left: 15%;
+}
+.board_title {
+	font-weight : 700;
+	font-size : 25pt;
+	margin : 10pt;
+}
+.board_info_box {
+	color : #6B6B6B;
+	margin : 10pt;
+}
+.board_tag {
+	color : #6B6B6B;
+	font-size : 9pt;
+	margin : 10pt;
+	padding-bottom : 10pt;
+}
+</style>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- bootstrap css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
 </head>	
 <body>
-<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
-<div class="container">
+	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+	
+	<div class="container">
+		<div class="box">
+			<table class="table table-sm caption-top">
+				<caption>일문일답    |  ${boardList.rn} 번째 글</caption>
+			</table>
+			<div class="container">
+        	<p class="board_title">${boardList.boardTitle}</p>
+        	<p class="board_info_box">${boardList.boardRegday} by <a href="#" class="dropbtn">
+        	<c:if test="${empty boardList.memberNickname}">탈퇴 회원</c:if>
+			<c:if test="${!empty boardList.memberNickname}">
+			<div class="dropdown">
+				<div class="dropdown-content">
+				<p><a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/>">게시물 보기</a></p>
+				<p><a href=# onclick="popUpInfo();">회원 정보 보기</a></p>
+				</div>
+			</div></c:if></a></p>
+			</div>
+		</div>
+        	<p class="board_tag">조회수 : ${boardList.boardCount}, 공감 수 : ${boardList.boardLike}</p>    
+        	<hr><p>${boardList.boardContent}</p>
+    </div>
+    
+    
+    </div>
+	<div class="container">
 	<table border="1">
 		<tr>
 			<th>NO</th>
@@ -33,26 +81,17 @@
 			<th>작성날짜</th>
 			<th>좋아요</th>
 			<th>카운트</th>
-
-
 		</tr>
 		<c:if test="${ empty boardList}">
 			<tr>
 				<td colspan="7">게시판에 저장된 글이 없습니다.</td>
 			</tr>
 		</c:if>
-
 		<c:if test="${ !empty boardList}">
-
 			<tr>
 				<td>${boardList.rn}</td>
-
 				<td>${boardList.boardTitle}</td>
 				<td>${boardList.boardContent}</td>
-				
-			
-				
-				
 					<td>
 					<c:if test="${empty boardList.memberNickname }">
 						탈퇴 회원
@@ -70,11 +109,9 @@
 										let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
 										window.open(url, name, specs);}
 									</script>
-								
 							</div>
 						</div>
 					</c:if></td>
-					
 				<td>${boardList.boardRegday}</td>
 				<td>${boardList.boardLike}</td>
 				<td>${boardList.boardCount}</td>
@@ -86,6 +123,7 @@
 					<img id="heart" src="" height="30px">
 				</a>
 			</div>
+
 				<script type="text/javascript">
 					function popUpInfo(){
 						let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardlist.memberSeq}";
@@ -97,23 +135,13 @@
 
 
 			<c:if test="${myArticle == true}">
-
 				<a href="<c:url value='/board/edit?boardSeq=${boardList.boardSeq}'/>"><button>글
 						수정</button></a>
-
-
+						
 				<a href="<c:url value='/board/delete?boardSeq=${boardList.boardSeq}'/>"><button
 						onclick="button_event();">글 삭제</button></a>
-
-
 			</c:if>
-
-
-
-
 		</c:if>
-
-
 	</table>
 	
 		<!-- 댓글 입력 폼 -->
@@ -123,7 +151,6 @@
 	<br/>
 	<hr/>
 	<h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
-	<div id="replyList"></div>
 	
 	<div class="col-md-6">
 		<label for="memberNickname" id="memberNickname">작성자 : ${memberLogin.memberNickname}</label><br/>
@@ -131,6 +158,8 @@
 		<textarea class="form-control" id="replyContent" name="replyContent"></textarea>
 		<button type="button" class="btn btn-outline-success" id="replywriteBtn" name="replywriteBtn">댓글 작성</button>
 	</div>
+	
+	<div id="replyList"></div>
 
 	
 	
@@ -346,7 +375,7 @@
 				
 				success: function(result){
 					getreplylist();
-				
+			
 				}, error: function(error){
 					console.log("에러 : " + JSON.stringify(error));
 				}
@@ -355,18 +384,11 @@
 
 		//글 삭제시 이벤트 처리
 		function button_event() {
-
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
-
 				document.form.submit();
-
 			} else { //취소
-
 				return;
-
 			}
-
 		}
 	</script>
-
 </body>

@@ -45,28 +45,38 @@
 				<caption>공지사항    |  ${notice.noticeSeq} 번째 글 수정</caption>
 			</table>
         	<p class="board_title"><input type="text" name="noticeTitle" value="${notice.noticeTitle}" /></p>
-        	<p class="board_info_box">${notice.noticeRegDay} by <a href='/member/popup?memberSeq=${notice.noticeSeq}'>닉네임</a></p> <!-- notice에는 닉네임 받는 곳이 없어서 임시로 지정 -->
-        	<p class="board_tag">조회수 : <c:out value="${notice.noticeSeq}"/>,  댓글 : <c:out value="${notice.noticeSeq}"/>,  공감 수 : <c:out value="${notice.noticeSeq}"/></p> <!-- 임시로 지정 -->    
+        	<p class="board_info_box">${notice.noticeRegDay} by <a>관리자</a></p>
         	<hr><p><textarea name="noticeContent">${notice.noticeContent}</textarea>
         			<script>
 						CKEDITOR.replace('noticeContent',{filebrowserUploadUrl : '${pageContext.request.contextPath}/notice/fileupload'});
 					</script></p>
     	</div>
 		
-		<div style="margin-top:2%; padding-left:20%; float:right;">
+		<div style="margin-top:2%; padding-left:20%; padding-bottom:10%; float:right;">
 			<c:if test="${adminAuthInfoCommand != null}">
-			<input type="submit" class="btn btn-outline-info" value="수정하기" />
-			<input type="button" class="btn btn-outline-info" value="수정취소" onclick="updateConfirm()">
+			<input type="submit" class="btn btn-outline-info" value="수정하기" onclick="updateConfirm()"/>
+			<input type="button" class="btn btn-outline-info" value="수정취소" onclick="updateNoConfirm()">
 			</c:if>
 		</div>
 	
 	<script>
-		function updateConfirm(){
+		function updateNoConfirm(){
 			if(!confirm("수정을 취소하시겠습니까?")){
 				return false;			
 			}
 			else{
 				location.href="<c:url value='/notice/read/'/>"+${notice.noticeSeq};
+			}
+		}
+
+		function updateConfirm(){
+			if(!confirm("수정 하시겠습니까?")){
+				return true;
+				alert("수정이 취소됐습니다");
+			}
+			else{
+				location.href="<c:url value='/notice/update?noticeSeq='/>"+${notice.noticeSeq};
+				alert("수정이 완료되었습니다.");
 			}
 		}
 
