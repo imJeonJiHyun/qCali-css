@@ -67,11 +67,11 @@ thead {
 				<div class="col-6 col-md-4">
 
 					<div class="background">
-						<br>
-						<br>
+						<br> <br>
 						<section>
 							<div class="from-them">
-								<p><h5>Today Question</h5>${boardQuestion.questionContent}</p>
+								<p>
+								<h5>Today Question</h5>${boardQuestion.questionContent}</p>
 							</div>
 							<div class="clear"></div>
 							<div class="from-me">
@@ -111,8 +111,9 @@ thead {
 
 			<%-- 검색 bar --%>
 			<div class="search row">
-			<form action="<c:url value='/board/search'/>">
+
 				<div class="col-xs-2 col-sm-2">
+					<form action="<c:url value='/board/search'/>">
 						<select name="searchOption" class="form-select form-select-sm"
 							aria-label=".form-select-sm example">
 							<option value="boardTitle">제목</option>
@@ -126,10 +127,12 @@ thead {
 							type="submit" value="검색" class="btn btn-default" />
 						</span>
 					</div>
-					</div>
-					</form>
+					
 				</div>
+				</form>
+
 			</div>
+
 
 			<%--게시글 부븐 --%>
 
