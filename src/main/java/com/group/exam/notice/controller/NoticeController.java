@@ -187,7 +187,5 @@ public class NoticeController {
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }
