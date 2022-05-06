@@ -189,11 +189,11 @@
 	</c:if>
 	</c:if>
 
-	<c:if test="${empty memberLogin}">
-		<a href="<c:url value='/member/login'/>"><button>로그인</button></a>
-
-	</c:if>
-	
 </div>
+
+	<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
+
+
+
 </body>
 </html>

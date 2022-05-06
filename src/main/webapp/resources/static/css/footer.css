@@ -4,11 +4,11 @@ footer {
 	bottom: 0;
 	left: auto;
 	right: 0;
-	background: #111;
+	background: #f8f9fa;
 	height: auto;
 	width: 100%;
 	padding-top: 40px;
-	color: #fff;
+	color: #111;
 	position: relative;
 	text-align: center;
 }
@@ -50,7 +50,7 @@ footer {
 
 .socials a {
 	text-decoration: none;
-	color: #fff;
+	color: #111;
 	border: 1.1px solid white;
 	padding: 5px;
 	border-radius: 50%;
@@ -80,7 +80,7 @@ footer {
 }
 
 .footer-menu ul li a {
-	color: #cfd2d6;
+	color: #111;
 	border: 1.3px solid white;
 	padding: 6px 15px;
 	border-radius: 50px;
@@ -88,11 +88,11 @@ footer {
 }
 
 .footer-menu ul li a:hover {
-	color: #27bcda;
+	color: #111;
 }
 
 .footer-bottom {
-	background: #000;
+	background: #d3d3d3;
 	width: 100%;
 	padding: 20px;
 	text-align: center;
@@ -106,7 +106,7 @@ footer {
 }
 
 .footer-bottom p a {
-	color: #44bae8;
+	color: #111;
 	font-size: 16px;
 	text-decoration: none;
 }
@@ -115,6 +115,11 @@ footer {
 	text-transform: uppercase;
 	opacity: .4;
 	font-weight: 200;
+}
+
+a:-webkit-any-link {
+	text-decoration: none;
+	color : black;
 }
 
 @media ( max-width :500px) {
