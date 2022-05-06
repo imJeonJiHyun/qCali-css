@@ -57,6 +57,7 @@
 		    <exclude-mapping path="/**/*.css"/>
 		    <exclude-mapping path="/**/*.js"/>
 		    <exclude-mapping path="/**/*.png"/>
+		    <exclude-mapping path="/**/*.jpg"/>
 		    <exclude-mapping path="/images/**/*.*"/>
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>		

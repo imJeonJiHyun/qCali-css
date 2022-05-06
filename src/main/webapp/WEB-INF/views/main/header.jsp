@@ -35,7 +35,7 @@
 					</c:if>     
 	   		  		<c:if test="${!empty adminAuthInfoCommand }">
 	   		  			<span class="navbar-text">
-	   		  				관리자 님
+	   		  				<a href="${pageContext.request.contextPath }/admin/main">관리자 님</a>
 	   		  			</span>
   						<a class="nav-link" href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 					</c:if>

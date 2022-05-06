@@ -56,9 +56,8 @@
 		QUESTION Q
 		on
 		M.MEMBER_SEQ = Q.MEMBER_SEQ
-		where Q.QUESTION_STATUS = 'F')
+		where Q.QUESTION_STATUS = 'F' ORDER BY QUESTION_SEQ)
 		where no between #{rowStart} and #{rowEnd}
-		ORDER BY QUESTION_SEQ 
 		 ]]>
 	</select>
 	<select id="questionListAll" parameterType="com.group.exam.utils.Criteria" 
@@ -72,8 +71,8 @@ where no between #{rowStart} and #{rowEnd} ]]>
 	</select>
 	
 	<insert id="questionAdd" parameterType="com.group.exam.question.vo.QuestionVo">
-		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTENT)
-		VALUES (Q_SEQ.nextval, #{questionContent})
+		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTENT, member_seq)
+		VALUES (Q_SEQ.nextval, #{questionContent}, -1)
 	</insert>
 	
 	<select id="adminboardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria">

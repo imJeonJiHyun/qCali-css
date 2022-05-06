@@ -35,6 +35,7 @@ public class AdminQuestionController {
 	//status가 'F', 승인 대기중인 question 출력
 	@RequestMapping(value="/question/list")
 	public String questionList(Model model, Criteria cri, QuestionRegistCommand questionRegistCommand) {
+		
 		List<AdminQuestionMember> questions = adminService.questionList(cri);
 		model.addAttribute("questions", questions);
 		

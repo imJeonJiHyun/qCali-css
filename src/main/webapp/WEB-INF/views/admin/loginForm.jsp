@@ -27,14 +27,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+<%-- 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include> --%>
 
   <div class="position-absolute top-50 start-50 translate-middle">
 	<div class="card mb-3" style="width : auto;">
 		<div class="row g-0 d-flex align-items-center">
 			<div class="col-lg-4 d-none d-lg-flex">
-				<img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
-					alt="Trendy Pants and Shoes"
+				<img src="<c:url value='/resources/static/images/diaryimg.jpg'/>"
 					class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
 			</div>
 			<div class="col-lg-8">

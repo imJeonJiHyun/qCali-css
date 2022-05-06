@@ -28,9 +28,11 @@ public class AdminLoginController {
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(Model model, AdminLoginCommand adminLoginCommand, HttpSession session) {
-		if(session.getAttribute("adminAuthInfoCommand") != null || session.getAttribute("memberLogin") != null) {
+		if(session.getAttribute("adminAuthInfoCommand") != null ) {
 			// 만약 세션이 있으면 main으로 redirect 하도록
 			return "/admin/main";
+		}else if(session.getAttribute("memberLogin") != null) {
+			return "/member/main";
 		}
 		model.addAttribute("AdminLoginCommand", adminLoginCommand);
 		return "admin/loginForm";

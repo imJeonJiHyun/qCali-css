@@ -39,7 +39,7 @@ a:active {
  
 <body class = "sb-nav-fixed">
 	<div class="container mt-5">
-	<h3 class="mt-3">랭킹 1위~5위</h3>
+	<h2 class="mt-3">랭킹 1위~5위</h2>
 	
 	<div class="dataTable-container mt-3">
 	<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-bottom : 11px;" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
@@ -48,13 +48,13 @@ a:active {
 	
 	<h4 style="display : inline-block;">게시물 랭킹</h4>
 		
-	<table id = "datatablesSimple" class="dataTable-table">
+	<table id = "datatablesSimple" class="dataTable-table m-3">
 		<thead>
 		<tr>
 			<th>순위</th>
 			<th>ID</th>
 			<th>닉네임</th>
-			<th>작성 게시물 수</th>
+			<th>작성 수</th>
 		</tr>
 		</thead>
 		
@@ -77,13 +77,13 @@ a:active {
 	
 	<h4 style="display : inline-block;">댓글 수 랭킹</h4>
 	<div class="dataTable-container">
-	<table id = "datatablesSimple" class="dataTable-table">
+	<table id = "datatablesSimple" class="dataTable-table m-3">
 		<thead>
 		<tr>
 			<th>순위</th>
 			<th>ID</th>
 			<th>닉네임</th>
-			<th>작성 게시물 수</th>
+			<th>작성 수</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -104,13 +104,13 @@ a:active {
 	
 	<h4 style="display : inline-block;">일기 수  랭킹</h4>
 	<div class="dataTable-container">
-	<table id = "datatablesSimple" class="dataTable-table">
+	<table id = "datatablesSimple" class="dataTable-table m-3">
 		<thead>
 		<tr>
 			<th>순위</th>
 			<th>ID</th>
 			<th>닉네임</th>
-			<th>작성 게시물 수</th>
+			<th>작성 수</th>
 		</tr>
 		</thead>
 		<tbody>
