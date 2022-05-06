@@ -2,6 +2,8 @@ package com.group.exam.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.admin.service.AdminService;
 import com.group.exam.member.vo.MemberVo;
 import com.group.exam.utils.Criteria;
@@ -27,20 +28,24 @@ public class AdminMemberController {
 	
 	//멤버 리스트
 	@RequestMapping(value="/list")
-	public String list(Model model, Criteria cri) {
-		List<MemberVo> members = adminService.selectMember(cri);
-		model.addAttribute("members", members);
+	public String list(Model model, Criteria cri, HttpSession session) {
 		
-		PagingVo pageMaker = new PagingVo();
-		pageMaker.setCri(cri);
-		int boardTotal = adminService.memberListTotal();
-		pageMaker.setTotalCount(boardTotal);
-		model.addAttribute("boardTotal", boardTotal);
-		model.addAttribute("pageMaker", pageMaker);
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			
+			return "redirect:/main";
+		}else {
+			List<MemberVo> members = adminService.selectMember(cri);
+			model.addAttribute("members", members);
+			
+			PagingVo pageMaker = new PagingVo();
+			pageMaker.setCri(cri);
+			int boardTotal = adminService.memberListTotal();
+			pageMaker.setTotalCount(boardTotal);
+			model.addAttribute("boardTotal", boardTotal);
+			model.addAttribute("pageMaker", pageMaker);
 
-		
-		
-		return"/admin/memberList";
+			return"/admin/memberList";	
+		}
 	}
 	
 	//유저 관리

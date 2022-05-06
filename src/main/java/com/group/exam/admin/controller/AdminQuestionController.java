@@ -2,6 +2,7 @@ package com.group.exam.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,24 @@ public class AdminQuestionController {
 	
 	//status가 'F', 승인 대기중인 question 출력
 	@RequestMapping(value="/question/list")
-	public String questionList(Model model, Criteria cri, QuestionRegistCommand questionRegistCommand) {
+	public String questionList(HttpSession session, Model model, Criteria cri, QuestionRegistCommand questionRegistCommand) {
 		
-		List<AdminQuestionMember> questions = adminService.questionList(cri);
-		model.addAttribute("questions", questions);
-		
-		PagingVo pageMaker = new PagingVo();
-		System.out.println(questions);
-		pageMaker.setCri(cri);
-		int questionTotal = adminService.questionListTotal();
-		pageMaker.setTotalCount(questionTotal);
-		
-		model.addAttribute("boardTotal", questionTotal);
-		model.addAttribute("pageMaker", pageMaker);
-		return "/admin/questionList";
+		if(session.getAttribute("adminAuthInfoCommand") ==null) {
+			return "redirect:/main";
+		}else {
+			List<AdminQuestionMember> questions = adminService.questionList(cri);
+			model.addAttribute("questions", questions);
+			
+			PagingVo pageMaker = new PagingVo();
+			System.out.println(questions);
+			pageMaker.setCri(cri);
+			int questionTotal = adminService.questionListTotal();
+			pageMaker.setTotalCount(questionTotal);
+			
+			model.addAttribute("boardTotal", questionTotal);
+			model.addAttribute("pageMaker", pageMaker);
+			return "/admin/questionList";
+		}
 	}
 	
 	
@@ -66,51 +71,44 @@ public class AdminQuestionController {
 	//질문 추가하기
 	@RequestMapping(value ="/question/questionAdd" , method=RequestMethod.POST)
 	public String questionAdd(@ModelAttribute("questionRegistCommand") @Valid QuestionRegistCommand questionRegistCommand
-			,BindingResult result, Model model) {
+			,BindingResult result, Model model, HttpSession session) {
 		if(result.hasErrors()) {
 				
 			return "redirect:/admin/question/list";
 		}
-		adminService.addQuestion(questionRegistCommand);
-		System.out.println(questionRegistCommand);
-		return "redirect:/admin/question/list";
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "redirect:/main";
+		}else {
+			adminService.addQuestion(questionRegistCommand);
+			System.out.println(questionRegistCommand);
+			return "redirect:/admin/question/list";
+		}
 	}
 	//총 질문 LIST
 	@RequestMapping(value="/questionAll")
-	public String questionAll(Model model, Criteria cri) {
-		List<AdminQuestionMember> questionAll = adminService.questionAllList(cri);
-		int questionTotal = adminService.countQuestionList();
-		model.addAttribute("questionTotal", questionTotal);
-		model.addAttribute("questions", questionAll);
+	public String questionAll(Model model, Criteria cri, HttpSession session) {
 		
-		
-		PagingVo pageMaker = new PagingVo();
-		
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(questionTotal);
-		
-		model.addAttribute("boardTotal", questionTotal);
-		model.addAttribute("pageMaker", pageMaker);
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			
+			return "redirect:/main";
+		}else {
+			List<AdminQuestionMember> questionAll = adminService.questionAllList(cri);
+			int questionTotal = adminService.countQuestionList();
+			model.addAttribute("questionTotal", questionTotal);
+			model.addAttribute("questions", questionAll);
+			
+			
+			PagingVo pageMaker = new PagingVo();
+			
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(questionTotal);
+			
+			model.addAttribute("boardTotal", questionTotal);
+			model.addAttribute("pageMaker", pageMaker);
 
-		return "/admin/questionAllList";
+			return "/admin/questionAllList";
+			
+		}
 	}
 
-//	@Scheduled(cron = "0 * * * * *")
-//	public void getSequence() {
-//		logger.info(new Date() + "스케쥴러 실행");
-//		num = adminService.getSequence();
-//		System.out.println(num);
-//	}
-//	
-//	@RequestMapping(value="todayQuestion")
-//	public String todayQuestion (Model model) throws Exception {
-//		if(num == 0) {
-//			num = adminService.currentSequence();
-//			
-//		}
-//		logger.info(""+num);
-//		QuestionVo list = adminService.questionselect(num);
-//		model.addAttribute("list", list);
-//		return "/admin/todayQuestion";
-//	}
 }

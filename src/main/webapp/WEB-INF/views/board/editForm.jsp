@@ -61,6 +61,7 @@
 	</c:if>
 </div>
 </article>
+<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
 <c:if test="${empty memberLogin}">
 		
 		    <script>
