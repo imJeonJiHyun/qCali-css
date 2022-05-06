@@ -44,9 +44,9 @@
 		</table>
 		<div class="d-grid gap-2 d-md-block" style="float:right">
 			<c:if test="${adminAuthInfoCommand != null }">
-			<input type="button" value="글쓰기" class="btn btn-outline-info" onclick="location.href='<c:url value="/notice/write"/>'">
+			<input type="button" value="글쓰기" class="btn btn-default" onclick="location.href='<c:url value="/notice/write"/>'">
 			</c:if>
-			<input type="button" value="돌아가기" class="btn btn-outline-info" onclick="location.href='<c:url value="/board/list"/>'">  	
+			<input type="button" value="돌아가기" class="btn btn-default" onclick="location.href='<c:url value="/board/list"/>'">  	
 		</div>
 
 		<div> <!-- 페이징 처리 안됨 -->

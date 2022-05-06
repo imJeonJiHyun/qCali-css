@@ -6,6 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	body{
+		padding: 10%;
+	}
+
+</style>
+
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -21,7 +28,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<title>회원가입</title>
+<title>QCali :: 비밀번호 변경</title>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -55,7 +62,7 @@ var submitFlag = false;
 	</script>
 <body>
 
-<h3>QCali 비밀번호 변경</h3>
+<h3 align="center">QCali 비밀번호 변경</h3>
 <div class="mb-3 row">
     <label class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">

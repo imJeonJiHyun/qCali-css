@@ -54,8 +54,8 @@
 		
 		<div style="margin-top:2%; padding-left:20%; padding-bottom:10%; float:right;">
 			<c:if test="${adminAuthInfoCommand != null}">
-			<input type="submit" class="btn btn-outline-info" value="수정하기" onclick="updateConfirm()"/>
-			<input type="button" class="btn btn-outline-info" value="수정취소" onclick="updateNoConfirm()">
+			<input type="submit" class="btn btn-default" value="수정하기" onclick="updateConfirm()"/>
+			<input type="button" class="btn btn-default" value="수정취소" onclick="updateNoConfirm()">
 			</c:if>
 		</div>
 	

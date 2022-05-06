@@ -27,6 +27,8 @@
 <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
 <div class="container">
 
+
+<br><br>
 <%-- 검색 bar --%>
 		<div class="search row">
 			<div class="col-xs-2 col-sm-2">
@@ -74,7 +76,7 @@
 			<c:forEach var="list" items="${boardList}">
 				
 				<tr>
-					<td>${list.boardSeq}</td>
+					<td>${list.rn}</td>
 
 					<td><a href="<c:url value='/board/detail?boardSeq=${list.boardSeq}'/>">${list.boardTitle}</a>
 
@@ -92,7 +94,7 @@
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 				<c:if test="${pageMaker.prev }">
-					<li class="page-item disabled"><a class="page-link"
+					<li class="page-item"><a class="page-link"
 						href="memberArticle${pageMaker.makeQuery(pageMaker.startPage - 1) }&memberSeq=${searchMember}">Previous</a>
 					</li>
 				</c:if>
@@ -116,5 +118,6 @@
 
 
 </div>
+<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -62,7 +62,7 @@ public class MemberLoginController {
 		
 		// 로그인 세션이 이미 있을 경우
 		if (session.getAttribute("memberLogin") != null) {
-			return "/";
+			return "/main";
 		}
 		return "/member/loginForm";
 	}
@@ -81,7 +81,7 @@ public class MemberLoginController {
 			System.out.println("로그인 정보 없음 : " + member);
 
 			model.addAttribute("msg", "해당 회원 정보가 없습니다.");
-
+			return "/member/loginForm";
 		}
 
 		// 네이버 - 카카오 간편 로그인 한 적있는 계정 체크

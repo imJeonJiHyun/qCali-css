@@ -5,43 +5,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>게시물 디테일</title>
-</head>
-<script>
-	function deleteConfirm(){
-		if(!confirm("정말 삭제하시겠습니까?")){
-			return false;
-		}
-		else{
-			location.href="<c:url value='/admin/board/delete?boardSeq='/>"+${boards.boardSeq};
-		}
-	}
-</script>
-<body>
-	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+<style>
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+.box {
+  width: 1300px;
+  padding-top: 3%;
+  padding-left: 15%;
+}
+.board_title {
+	font-weight : 700;
+	font-size : 25pt;
+	margin : 10pt;
+}
+.board_info_box {
+	color : #6B6B6B;
+	margin : 10pt;
+}
+.board_tag {
+	color : #6B6B6B;
+	font-size : 9pt;
+	margin : 10pt;
+	padding-bottom : 10pt;
+}
+</style>
 
-	<h3>질문 : ${boards. questionContent}</h3>
-	<table border="1">
-		<tr>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>글 내용</th>
-		</tr>
-		<tr>
-			<td>${boards.boardTitle }</td>
-			<td>${boards.memberNickname }</td>
-			<td>${boards.boardContent }</td>
-		</tr>
-	</table>
-		<button id="boardDelete" onclick="window:location='<c:url value='/admin/board/delete?boardSeq=${boards.boardSeq }'/>'">글 삭제</button>
-		
-		<a href="javascript:void(0);" class="btu btn-danger" onClick="deleteConfirm();">글 삭제</a>
-		<label>좋아요  +${boards.boardLike }</label>
-		<label>조회수 ${boards.boardCount }</label>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">
+
+<title>QCali :: 게시물 보기</title>
+
+</head>
+<body class="sb-nav-fixed">
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
 	
-		<br><a href='<c:url value="/admin/board/list"/>'>글 목록 가기</a><br>
-		
-		
+	<div style="backgroud-color: #d3d3d3;">
+	<div class="container">
+		<div class="box">
+			<table class="table table-sm caption-top">
+				<caption>게시물 보기       |   </caption>
+			</table>
+			<p class="board_title">${boards.boardTitle }</p>
+			<p class="board_info_box">${boards.boardRegDay } by ${boards.memberNickname }</p>
+			<p class="board_tag">조회수 : <c:out value="${boards.boardCount }"/>,  좋아요 : <c:out value="${boards.boardLike }"/>
+			<hr>
+			<h5 class="text-muted">질문 : ${boards. questionContent}</h5>
+			<p>${boards.boardContent }</p>		
+		</div>
+
+	<br>
+	
+		<div style="float: right;">
+
+		<button type="button"  class="btn btn-outline-danger" onClick="deleteConfirm();">글 삭제</button>
+		</div>
+	</div>
+		<script>
+			function deleteConfirm(){
+				if(!confirm("정말 삭제하시겠습니까?")){
+				return false;
+				}
+				else{
+				location.href="<c:url value='/admin/board/delete?boardSeq='/>"+${boards.boardSeq};
+				}
+			}
+			</script>
+		</div>
 </body>
 </html>

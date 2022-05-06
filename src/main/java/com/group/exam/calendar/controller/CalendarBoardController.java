@@ -34,13 +34,13 @@ public class CalendarBoardController {
 	
 	@RequestMapping(value="/board/listDay", method=RequestMethod.GET)
 	public String listDay(String date, Model model, Criteria cri) {		
-		System.out.println("controller 옴");
-		System.out.println("controller에서 "+date);
+
+		
 		model.addAttribute("date", date);
 		
 		List<CalendarBoardVo> boards = calendarService.boardByDate(cri, date);
 		System.out.println(boards);
-		model.addAttribute("boards", boards);
+		model.addAttribute("boardList", boards);
 		
 		
 		PagingVo pageMaker = new PagingVo();
@@ -51,13 +51,7 @@ public class CalendarBoardController {
 		model.addAttribute("boardTotal", boardTotal);
 		model.addAttribute("pageMaker", pageMaker);
 		
-//		try {
-//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//			System.out.println(dateFormat.parse(date));
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 		return "/board/boardByDate";
 	}
 	

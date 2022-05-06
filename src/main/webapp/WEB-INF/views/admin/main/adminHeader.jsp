@@ -15,7 +15,7 @@
 	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand"
-				href="${pageContext.request.contextPath }/main">QCali : Admin</a>
+				href="${pageContext.request.contextPath }/admin/main">QCali : Admin</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarText"
 				aria-controls="navbarText" aria-expanded="false"
@@ -35,7 +35,7 @@
 	   		  			<span class="navbar-text">
 	   		  				관리자 님
 	   		  			</span>
-  						<a class="nav-link" href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
+  						<a class="nav-link" href="${pageContext.request.contextPath }/admin/logout">로그아웃</a>
 					</c:if>     
  			     </ul>
    			 </div>

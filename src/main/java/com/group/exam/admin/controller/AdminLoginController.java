@@ -28,9 +28,11 @@ public class AdminLoginController {
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(Model model, AdminLoginCommand adminLoginCommand, HttpSession session) {
-		if(session.getAttribute("adminAuthInfoCommand") != null) {
+		if(session.getAttribute("adminAuthInfoCommand") != null ) {
 			// 만약 세션이 있으면 main으로 redirect 하도록
 			return "/admin/main";
+		}else if(session.getAttribute("memberLogin") != null) {
+			return "/member/main";
 		}
 		model.addAttribute("AdminLoginCommand", adminLoginCommand);
 		return "admin/loginForm";
@@ -44,6 +46,7 @@ public class AdminLoginController {
 				// 빈값이면 form 다시 보여주도록
 				return "/admin/loginForm";
 			} else {
+				
 				// 로그인 Command의 값을 session에 담는다.
 				AdminAuthInfoCommand adminAuthInfoCommand = adminService.authenticate(adminLoginCommand.getAdminId(),
 						adminLoginCommand.getAdminPassword());
@@ -56,7 +59,7 @@ public class AdminLoginController {
 				// 세션에 set
 				session.setAttribute("adminAuthInfoCommand", adminAuthInfoCommand);
 
-				return "/admin/main";
+				return "redirect:/admin/main";
 			}
 
 		} catch (IdpasswordNotMatchingException e) {

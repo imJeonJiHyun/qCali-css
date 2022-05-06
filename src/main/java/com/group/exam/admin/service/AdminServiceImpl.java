@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group.exam.admin.command.AdminAuthInfoCommand;
 import com.group.exam.admin.command.AdminBoardCommand;
 import com.group.exam.admin.command.AdminQuestionMember;
+import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.admin.dao.AdminDao;
 import com.group.exam.admin.exception.IdpasswordNotMatchingException;
 import com.group.exam.admin.vo.AdminVo;
@@ -30,9 +31,10 @@ public class AdminServiceImpl implements AdminService {
 	public AdminAuthInfoCommand authenticate(String aId, String aPassword) {
 		AdminVo adminVo = (AdminVo) adminDao.selectByaId(aId);
 		if (adminVo == null) {
+			//id없음
 			throw new IdpasswordNotMatchingException();
 		}
-		if (!adminVo.matchPassword(aPassword)) {
+		if (!aPassword.equals(adminVo.getAdminPassword())){
 			throw new IdpasswordNotMatchingException();
 		}
 		// TODO Auto-generated method stub
@@ -128,6 +130,24 @@ public class AdminServiceImpl implements AdminService {
 	public int questionListTotal() {
 		// TODO Auto-generated method stub
 		return adminDao.questionListTotal();
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRank() {
+		// TODO Auto-generated method stub
+		return adminDao.memberRank();
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRankReply() {
+		// TODO Auto-generated method stub
+		return adminDao.memberRankReply();
+	}
+
+	@Override
+	public List<AdminRankCommand> memberRankDiary() {
+		// TODO Auto-generated method stub
+		return adminDao.memberRankDiary();
 	}
 
 }

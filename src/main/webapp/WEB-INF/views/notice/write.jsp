@@ -45,8 +45,8 @@
     		</div><br>
 			
 			<div style="margin-top:2%; padding-left:20%; float:right;">
-  				<button type="submit" class="btn btn-outline-info">등록하기</button>
-  				<input type="button" value="돌아가기" class="btn btn-outline-info" onclick="location.href='<c:url value="/notice/list"/>'">
+  				<button type="submit" class="btn btn-default">등록하기</button>
+  				<input type="button" value="돌아가기" class="btn btn-default" onclick="location.href='<c:url value="/notice/list"/>'">
 			</div>
 	</form>
 	<script>

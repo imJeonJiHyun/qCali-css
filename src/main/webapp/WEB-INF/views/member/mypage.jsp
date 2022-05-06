@@ -52,10 +52,6 @@
 <c:if test="${confirmPW == false}">
 
 
-
-
-	
-		
 		
 <br><br><br>	
 <form action="${pageContext.request.contextPath}/member/mypage/confirmPwd" method="POST">
@@ -68,8 +64,8 @@
   <div class="mb-3 row">
     <label class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control"name="memberPassword"  id="inputPassword" placeholder="비밀번호를 입력해주세요">
-  
+      <input type="password" class="form-control"name="memberPassword"  id="inputPassword" placeholder="비밀번호를 입력해주세요" required>
+
       ${msg}
     </div>
     <br><br>
@@ -112,11 +108,15 @@
    <figcaption class="blockquote-footer">
 		<%-- api 로그인 계정 상태 체크 -> 비밀번호 변경 불가 --%>
 		<c:if test="${memberLogin.naver eq 'F' && memberLogin.kakao eq 'F'}">
-			<a href="#" onclick="javascript:pwd_popup()" target = "_blank">비밀번호 변경하기</a>
+			<a href="<c:url value='/member/mypage/changePwd'/>" onclick="javascript:pwd_popup()" target = "_blank">비밀번호 변경하기</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		</c:if>
+		<c:if test="${memberLogin.memberAuth eq 'F' }">
+			<a href="<c:url value='/member/mypage/mailReissue'/>" >이메일 인증번호 재발급</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:if>
+		<a href="<c:url value='/member/mypage/changeNickname'/>" onclick="javascript:nickname_popup()" target = "_blank">닉네임 변경하기</a>
 		
-		<a href="#" onclick="javascript:nickname_popup()" target = "_blank">닉네임 변경하기</a>
 		 </figcaption>
 		 <figcaption class="blockquote-footer">
 		<a href="<c:url value='/member/mypage/delete?memberSeq=${memberLogin.memberSeq }'/>" >회원탈퇴</a>
@@ -189,11 +189,11 @@
 	</c:if>
 	</c:if>
 
-	<c:if test="${empty memberLogin}">
-		<a href="<c:url value='/member/login'/>"><button>로그인</button></a>
-
-	</c:if>
-	
 </div>
+
+	<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
+
+
+
 </body>
 </html>

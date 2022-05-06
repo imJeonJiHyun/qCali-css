@@ -50,7 +50,7 @@
 	<div class="container">
 		<div class="box">
 			<table class="table table-sm caption-top">
-				<caption>일문일답    |  ${boardList.boardSeq} 번째 글</caption>
+				<caption>일문일답    |  ${boardList.rn} 번째 글</caption>
 			</table>
 			<div class="container">
         	<p class="board_title">${boardList.boardTitle}</p>
@@ -59,8 +59,8 @@
 			<c:if test="${!empty boardList.memberNickname}">
 			<div class="dropdown">
 				<div class="dropdown-content">
-				<a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/>">게시물 보기</a>
-				<a href=# onclick="popUpInfo();">회원 정보 보기</a>
+				<p><a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/>">게시물 보기</a></p>
+				<p><a href=# onclick="popUpInfo();">회원 정보 보기</a></p>
 				</div>
 			</div></c:if></a></p>
 			</div>
@@ -102,6 +102,13 @@
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq }'/> ">게시물 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
+									<script type="text/javascript">
+										function popUpInfo(){
+										let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardList.memberSeq}";
+										let name = "Member 정보";
+										let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+										window.open(url, name, specs);}
+									</script>
 							</div>
 						</div>
 					</c:if></td>
@@ -138,11 +145,9 @@
 	</table>
 	
 		<!-- 댓글 입력 폼 -->
-   <br>
-	
-	
-	<br/>
-	<hr/>
+   	<br>
+	<br>
+	<hr>
 	<h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
 	
 	<div class="col-md-6">

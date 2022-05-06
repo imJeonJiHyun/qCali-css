@@ -1,5 +1,7 @@
 package com.group.exam.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,10 @@ public class AdminBoardController {
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String list(Model model, Criteria cri) throws Exception{
+	public String list(Model model, Criteria cri, HttpSession session) throws Exception{
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "redirect:/main";
+		}else {
 		model.addAttribute("boards", adminService.boardList(cri));
 		
 		PagingVo pageMaker = new PagingVo();
@@ -37,17 +42,22 @@ public class AdminBoardController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "/admin/boardList";
+		}
 	}
 
 	
 	@RequestMapping(value="/detail/{boardSeq}")
-	public String detail(@PathVariable("boardSeq") Long boardSeq, Model model) {
+	public String detail(@PathVariable("boardSeq") Long boardSeq, Model model, HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "redirect:/main";
+		}else {
 		AdminBoardCommand boards = adminService.selectBybseq(boardSeq);
 		if(boards ==null) {
 			//예외처리
 		}
 		model.addAttribute("boards", boards);
 		return "/admin/boarddetail";
+		}
 	}
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
 	public String boardDelete(@RequestParam("boardSeq")Long boardSeq) {

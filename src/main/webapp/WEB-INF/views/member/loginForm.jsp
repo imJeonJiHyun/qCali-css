@@ -73,9 +73,10 @@
 										<form:password path="memberPassword" 
 											class="form-control form-control-user"
 											id="exampleInputPassword" placeholder="Password" />
+											<form:errors path="memberPassword" />
 										
 									</div>
-		
+								<p class="m-2">${msg}</p>
 								</div>
 									<div class="form-group">
 									<input type="submit" class="btn btn-primary btn-user btn-block"
@@ -96,7 +97,7 @@
 
 							<hr>
                             <div class="text-center">
-                                <a class="small" href="#" onclick="findPwd_popup()" target = "_blank">Forgot Password?</a>
+                                <a class="small"  onclick="findPwd_popup()" target = "_blank">Forgot Password?</a>
                             </div>
                               <div class="text-center">
                                 <a class="small" href="${pageContext.request.contextPath }/member/insert">Create an Account!</a>

@@ -8,16 +8,53 @@
 <meta charset="UTF-8">
 <link href="<c:url value='/resources/static/css/dropdown.css'/> "
 	rel="stylesheet" type="text/css">
-<title>QNA Detail</title>
+<style>
+table {
+	width: 50%;
+	float:right;
+}
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+  
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">
+<title>QCali :: 문의사항 </title>
 </head>
-<body>
-	<h2>Q&A</h2>
-	<table class="table">
+<body class="sb-nav-fixed">
+<header>
+	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+</header>
+
+	
+	<div class="container mt-3">
+		<h2>Q&A 문의 내용</h2>
+	<br>
+	
+	<div class="shadow-none p-3 mb-5 bg-light rounded" style="border: 1px solid lightgrey;">
+		<h4 class="fw-bolder">${vo.qnaTitle }</h4>
+	</div>
+		
+	
+	<table class="table" width="200px">
 		<thead>
-		<tr>
-			<th>제목</th>
-			<td colspan="6">${vo.qnaTitle }</td>
-		</tr>
 		<tr>
 			<th>작성자</th>
 			<c:if test="${! empty vo.qnaWriter  }">
@@ -26,9 +63,10 @@
 			<c:if test="${empty vo.qnaWriter }">
 				<c:if test="${!empty vo.memberNickname }">
 					<td><div class="dropdown">
-							<a class="dropbtn">${ list.memberNickname}</a>
+							<a class="dropbtn">${ vo.memberNickname}</a>
 							<div class="dropdown-content">
-								<a href="<c:url value='/board/mylist/memberSeq=${list.memberSeq }'/> ">게시물 보기</a> 
+								<a href="<c:url value='/board/mylist/memberSeq=${vo.memberSeq }'/> ">게시물 보기</a> 
+								<a href="${pageContext.request.contextPath }/diary/list/${vo.memberSeq }">일기장 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
@@ -52,39 +90,45 @@
 			<th>조회수</th>
 			<td>${vo.qnaReadcnt }</td>
 		</tr>
-
-		<tr>
-			<th>내용</th>
-			<td colspan="5">${vo.qnaContent }</td>
-		</tr>
-
-		<tr>
-			<th>첨부 파일</th>
-			<td><c:if test="${!empty vo.qnaFileName }">
-					<a href="<c:url value='/qna/download?qnaSeq=${vo.qnaSeq}'/>">
-						${vo.qnaFileName } </a>
-				</c:if></td>
-		</tr>
 	</table>
 
-
+	
+	<div class="shadow-none p-3 mb-5 bg-light rounded" style="border:1px solid lightgrey;">
+		${vo.qnaContent }	
+	</div>
+	
+	<div class="input-group" style="width: auto;">
+			<span class="input-group-text">첨부 파일</span>
+		<c:if test="${!empty vo.qnaFileName }">
+			<a class="form-control" href="<c:url value='/qna/download?qnaSeq=${vo.qnaSeq}'/>">
+			${vo.qnaFileName } </a>
+		</c:if>	
+	</div>			
+	
+	<br>
 	<c:if test="${!empty admin }">
-		<a href="javascript:void(0);" class="btu btn-danger"
-			onClick="deleteConfirm();">삭제</a>
-
-		<a href="<c:url value='/qna/modify?qnaSeq=${vo.qnaSeq }' /> ">수정하기</a>
 		<c:if test="${ vo.qnaIndent == 0}">
-			<a href="<c:url value='/qna/reply?qnaSeq=${vo.qnaSeq }' /> ">답글쓰기</a>
+			<button type="button" class="btn btn-dark m-1" style="float:right;"
+			onClick="location.href='${pageContext.request.contextPath}/qna/reply?qnaSeq=${vo.qnaSeq }'">답글쓰기 
+			</button>
 		</c:if>
+
+		<button type="button" class ="btn btn-outline-dark m-1" 
+		onclick="deleteConfirm();"style="float:right;">글 삭제</button>
+
+		<button type="button" class="btn btn-outline-dark m-1" style="float:right;"
+		onclick="location.href='${pageContext.request.contextPath}/qna/modify?qnaSeq=${vo.qnaSeq }'">글 수정</button>
+
 	</c:if>
 
 	<c:if test="${!empty member }">
-		<a href="javascript:void(0);" class="btu btn-danger"
-			onClick="deleteConfirm();">삭제</a>
-		<a href="<c:url value='/qna/modify?qnaSeq=${vo.qnaSeq }' /> ">수정하기</a>
+		<button type="button" class ="btn btn-dark m-1" 
+		onclick="deleteConfirm();"style="float:right;">글 삭제</button>
+		<button type="button" class="btn btn-outline-dark m-1" style="float:right;"
+		onclick="location.href='${pageContext.request.contextPath}/qna/modify?qnaSeq=${vo.qnaSeq }'">글 수정</button>
 	</c:if>
-
-
+	</div>
+	
 <script>
 	function deleteConfirm(){
 		if(!confirm("정말 삭제하시겠습니까?")){

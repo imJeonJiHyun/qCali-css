@@ -69,7 +69,7 @@ public class QnaController {
 	//신규 글 생성
 	@RequestMapping(value="/write", method= RequestMethod.GET)
 	public String insert(HttpSession session) {
-		if(session.getAttribute("adminAuthInfoCommand")==null) {
+		if(session.getAttribute("adminAuthInfoCommand")==null && session.getAttribute("memberLogin")==null) {
 			return "/main";
 		}
 		return "/qna/write";

@@ -6,21 +6,61 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>멤버 리스트</title>
+<title>QCali :: 유저 관리</title>
+<style>
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
-
-	<table border="1">
+	
+	<div class="container mt-5">
+	<h2 class="m-3">Users</h2>
+	<h5 style="float: right;">사용자 수 : ${boardTotal }명</h5>
+	
+	<div class="dataTable-container">
+	<table id = "datatablesSimple" class="dataTable-table">
+		<thead>
 		<tr>
-		<th>아이디</th>
-		<th>비밀번호</th>
-		<th>가입 날짜</th>
-		<th>이메일 인증상태</th>
-		<th>레벨</th>
+			<th>아이디</th>
+			<th>닉네임</th>
+			<th>가입 날짜</th>
+			<th>인증T/F</th>
+			<th>레벨</th>
 		</tr>
+		</thead>
 		
+		<tfoot>
+		<tr>
+			<th>아이디</th>
+			<th>닉네임</th>
+			<th>가입 날짜</th>
+			<th>인증T/F</th>
+			<th>레벨</th>
+		</tr>
+		</tfoot>
+		
+		<tbody>
 		<c:forEach var="m" items="${members }">
 		<tr>
 			<td>${m.memberId}</td>
@@ -28,7 +68,8 @@
 			<td>${m.memberRegDay }</td>
 			<td>${m.memberAuth }</td>
 			<td>${m.memberLevel}</td>
-			<td><a href="javascript:void(0);" class="btn btn-danger" onclick="deleteConfirm();">삭제</a></td>
+			<td><button type="button" class="btn btn-danger" onclick="deleteConfirm();">삭제</button></td>
+				
 	
 		</tr>
 		<script type="text/javascript">
@@ -42,30 +83,27 @@
 	}
 </script>
 		</c:forEach>
+		</tbody>
 	</table>
+</div>
 
-	<div>
-	  <ul>
+
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 	    <c:if test="${pageMaker.prev}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
 	
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-	    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
 	    </c:forEach>
 	
 	    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-	    </c:if> 
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+	    </c:if>  
 	  </ul>
-	</div>
-
-
-
-	<br> <a href="<c:url value='/admin/logout'/> ">로그아웃 하기</a><br>   
-	<br> <a href="<c:url value='/admin/question/list'/> ">질문 추가/승인</a><br>
-	<br> <a href="<c:url value='/admin/board/list'/> ">게시물 보기</a><br>   	
-
+	</nav>
+</div>
 
 
 </body>

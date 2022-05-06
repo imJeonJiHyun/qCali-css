@@ -29,6 +29,7 @@
 <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
 <div class="container">
+<br><br>
 <%-- 검색 bar --%>
 		<div class="search row">
 			<div class="col-xs-2 col-sm-2">
@@ -90,7 +91,10 @@
 									<div class="dropdown-content">
 										<a
 											href="<c:url value='/board/memberArticle?memberSeq=${list.memberSeq }'/> ">게시물
-											보기</a> <a href=# onclick="popUpInfo();">회원 정보 보기</a>
+											보기</a> 
+											<a href="${pageContext.request.contextPath }/diary/list/${list.memberSeq}">일기장 보기</a>
+											<a href=# onclick="popUpInfo();">회원 정보 보기</a>
+										
 										<script type="text/javascript">
 											function popUpInfo() {
 												let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${list.memberSeq}";
@@ -114,7 +118,7 @@
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 				<c:if test="${pageMaker.prev }">
-					<li class="page-item disabled"><a class="page-link"
+					<li class="page-item"><a class="page-link"
 						href="search${pageMaker.makeQuery(pageMaker.startPage - 1) }&searchOption=${searchOption}&searchWord=${searchWord}">Previous</a>
 					</li>
 				</c:if>
@@ -138,5 +142,6 @@
 
 
 </div>
+<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.group.exam.admin.command.AdminBoardCommand;
 import com.group.exam.admin.command.AdminQuestionMember;
+import com.group.exam.admin.command.AdminRankCommand;
 import com.group.exam.member.vo.MemberVo;
 import com.group.exam.question.vo.QuestionVo;
 import com.group.exam.utils.Criteria;
@@ -32,5 +33,8 @@ public interface AdminDao {
 	public int countQuestionList();
 	public int memberListTotal();
 	public int questionListTotal();
+	public List<AdminRankCommand> memberRank();
+	public List<AdminRankCommand> memberRankReply();
+	public List<AdminRankCommand> memberRankDiary();
 
 }

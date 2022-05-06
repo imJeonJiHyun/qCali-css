@@ -6,20 +6,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="<c:url value='/resources/static/css/dropdown.css'/> "
+	rel="stylesheet" type="text/css">
 
-<title>QClia :: Q&A</title>
+<style>
+
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : grey;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: underline;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link href="<c:url value='/resources/static/css/styles.css'/> "
+	rel="stylesheet" type="text/css">
 </head>
-<body>
+<title>QCali :: Q&A</title>
+</head>
+<body class="sb-nav-fixed">
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
 	
 
 	
 	<!-- 목록 -->
 	
+	<div class="container mt-3">
+	<h2 class="m-3">Q&A</h2>
+	<h5 style="float: right;">총 게시물 수 : ${boardTotal }개</h5>
 	
-	
+
 	<table class ="table table-striped" >
 		<thead>
 		<tr>
@@ -78,7 +106,8 @@
 					
 							<a class="dropbtn">${ list.memberNickname}</a>
 							<div class="dropdown-content">
-								<a href="<c:url value='/board/mylist?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
+								<a href="<c:url value='/board/memberArticle?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
+								<a href="${pageContext.request.contextPath }/diary/list/${list.memberSeq}"> 일기장 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
@@ -100,22 +129,26 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<button type="button" class="btn btn-secondary" style="float: right;"
+	onclick="location.href='${pageContext.request.contextPath}/qna/write'" >문의하기</button>
 	
-		<div>
-	  <ul>
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 	    <c:if test="${pageMaker.prev}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
 	    </c:if> 
 	
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-	    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
 	    </c:forEach>
 	
 	    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-	    </c:if> 
+	    	<li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">></a></li>
+	    </c:if>  
 	  </ul>
-	</div>
+	</nav>
+</div>
+	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

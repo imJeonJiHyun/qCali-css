@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group.exam.board.command.BoardlistCommand;
 import com.group.exam.board.service.BoardService;
+import com.group.exam.member.command.InsertCommand;
 import com.group.exam.member.command.LoginCommand;
 import com.group.exam.member.command.MemberchangePwd;
+import com.group.exam.member.service.MailSendService;
 import com.group.exam.member.service.MemberService;
 import com.group.exam.utils.Criteria;
 import com.group.exam.utils.PagingVo;
@@ -32,33 +34,37 @@ import com.group.exam.utils.PagingVo;
 public class MemberMypageController {
 
 	private MemberService memberService;
-	
+
 	private BoardService boardService;
 
 	private BCryptPasswordEncoder passwordEncoder;
 
+	private MailSendService mss;
+
 	@Autowired
-	public MemberMypageController(MemberService memberService, BCryptPasswordEncoder passwordEncoder, BoardService boardService) {
+	public MemberMypageController(MemberService memberService, BCryptPasswordEncoder passwordEncoder,
+			MailSendService mss, BoardService boardService) {
 
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.boardService = boardService;
+		this.mss = mss;
 	}
 
 	@GetMapping(value = "/confirmPwd")
 	public String confirmPwd(String memberPassword, HttpSession session, Model model, Criteria cri) {
-		
+
 		boolean confirmPW = false;
-		
+
 		// api 로그인 시, 비밀번호 확인 안하고 마이페이지 바로 이동.
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
-		
+
 		if (command.getNaver().equals("T") || command.getKakao().equals("T")) {
-			
+
 			confirmPW = true;
 			model.addAttribute("confirmPW", confirmPW);
-			
-			//마이페이지에 본인 쓴 글 바로 출력 
+
+			// 마이페이지에 본인 쓴 글 바로 출력
 			int total = boardService.mylistCount(command.getMemberSeq());
 
 			List<BoardlistCommand> list = boardService.boardMyList(cri, command.getMemberSeq());
@@ -69,10 +75,10 @@ public class MemberMypageController {
 			pageCommand.setTotalCount(total);
 			model.addAttribute("boardTotal", total);
 			model.addAttribute("pageMaker", pageCommand);
-			
+
 			return "member/mypage";
 		}
-		
+
 		model.addAttribute("confirmPW", confirmPW);
 		return "/member/mypage";
 	}
@@ -80,9 +86,9 @@ public class MemberMypageController {
 	// 마이페이지 가기 전에 비밀번호 체크
 	@PostMapping(value = "/confirmPwd")
 	public String confirmPwd(@RequestParam String memberPassword, Model model, HttpSession session, Criteria cri) {
-		
+
 		boolean confirmPW = false;
-		
+
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
 
 		String encodePassword = memberService.findPwd(command.getMemberId()).getMemberPassword();
@@ -91,8 +97,8 @@ public class MemberMypageController {
 		if (pwdEncode) {
 			confirmPW = true;
 			model.addAttribute("confirmPW", confirmPW);
-			
-			//마이페이지에 본인 쓴 글 바로 출력 
+
+			// 마이페이지에 본인 쓴 글 바로 출력
 			int total = boardService.mylistCount(command.getMemberSeq());
 
 			List<BoardlistCommand> list = boardService.boardMyList(cri, command.getMemberSeq());
@@ -103,10 +109,10 @@ public class MemberMypageController {
 			pageCommand.setTotalCount(total);
 			model.addAttribute("boardTotal", total);
 			model.addAttribute("pageMaker", pageCommand);
-			
+
 			return "/member/mypage";
 		}
-		
+
 		model.addAttribute("confirmPW", confirmPW);
 		model.addAttribute("msg", "비밀번호가 다릅니다.");
 
@@ -118,13 +124,13 @@ public class MemberMypageController {
 	public String changePwd() {
 		return "/member/changePwdForm";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/changePwd", produces="application/json", method=RequestMethod.POST)
+	@RequestMapping(value = "/changePwd", produces = "application/json", method = RequestMethod.POST)
 	public boolean changePwd(@RequestBody MemberchangePwd changepwdData, HttpSession session) {
-		
+
 		boolean result = false;
-		
+
 		// 비밀번호-비밀번호 확인 check
 		boolean pwdcheck = changepwdData.getMemberPassword().equals(changepwdData.getMemberPasswordCheck());
 
@@ -140,7 +146,7 @@ public class MemberMypageController {
 		boolean pwdEncode = passwordEncoder.matches(changepwdData.getMemberPassword(), encodePassword);
 
 		if (pwdEncode) {
-			
+
 			return result;
 		}
 
@@ -151,10 +157,10 @@ public class MemberMypageController {
 		pwdEncode = passwordEncoder.matches(changepwdData.getMemberPassword(), encodePassword);
 
 		if (pwdEncode) {
-			
+
 			return result;
 		}
-		
+
 		String updateEncodePassword = passwordEncoder.encode(changepwdData.getMemberPassword());
 
 		memberService.updateMemberPwd(updateEncodePassword, command.getMemberSeq());
@@ -164,40 +170,68 @@ public class MemberMypageController {
 
 		session.setAttribute("memberLogin", login);
 		result = true;
-		
+
 		return result;
 	}
 
 	// 닉네임 변경
 	@GetMapping(value = "/changeNickname")
 	public String changeNickname(HttpSession session) {
-		
+
 		return "/member/changeNicknameForm";
 	}
 
 	@PostMapping(value = "/changeNickname")
 	@ResponseBody
-	public void changeNickname(@RequestBody String memberNickname, HttpSession session,
-			Model model) {
+	public void changeNickname(@RequestBody String memberNickname, HttpSession session, Model model) {
 
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
-			
+
 		memberService.updateMemberNickname(memberNickname, command.getMemberSeq());
-		
 
 		// 세션 로그인 정보
 		LoginCommand login = memberService.login(command.getMemberId());
 
 		session.setAttribute("memberLogin", login);
 
+	}
+
+	// 이메일 인증 번호 재발급
+	@GetMapping(value = "/mailReissue")
+	public String mailReissue(HttpSession session, Model model) {
+		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
+
+		// 로그인 세션 없을 때 ->main
+		if (loginMember == null) {
+			model.addAttribute("msg", "로그인이 후에 이용 가능합니다.");
+			return "member/member_alert/alertGoMain";
+		}
+
+		// 해당 아이디로 이메일 발송
+		// 인증 메일을 발송,인증키 6자리 String 반환
+		InsertCommand insertCommand = new InsertCommand();
+		
+		insertCommand.setMemberId(loginMember.getMemberId());
+		
+		String authKey = mss.sendAuthMail(loginMember.getMemberId());
+		
+		// 인증키 셋
+		insertCommand.setMemberAuthkey(authKey);
+
+		// DB에 인증키 업데이트
+		memberService.updateAuthkey(insertCommand);
+
+		model.addAttribute("msg", "이메일로 인증 번호가 재 발송 되었습니다.");
+		return "/member/member_alert/alertGoMain";
 
 	}
+	
 
 	// 회원 탈퇴
 	@GetMapping(value = "/delete")
-	public String deleteMember(HttpSession session) {
+	public String deleteMember(@RequestParam String memberSeq) {
 
-		return "/member/mypage";
+		return "/member/deleteForm";
 
 	}
 
@@ -211,17 +245,16 @@ public class MemberMypageController {
 
 		if (pwdEncode) {
 
-		    memberService.deleteMember(command.getMemberSeq());
-
+			memberService.deleteMember(command.getMemberSeq());
 
 			session.invalidate(); // 탈퇴 성공시, 로그인 세션 제거
-
-			return "/member/member_alert/memberDeleteNext";
+			model.addAttribute("msg", "회원 탈퇴가 완료되었습니다.");
+			return "/member/member_alert/alertGoMain";
 
 		}
 		model.addAttribute("msg", "비밀번호가 다릅니다.");
 
-		return "/member/mypage";
+		return "/member/deleteForm";
 	}
 
 }

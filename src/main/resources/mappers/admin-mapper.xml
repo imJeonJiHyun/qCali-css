@@ -56,42 +56,35 @@
 		QUESTION Q
 		on
 		M.MEMBER_SEQ = Q.MEMBER_SEQ
-		where Q.QUESTION_STATUS = 'F')
+		where Q.QUESTION_STATUS = 'F' ORDER BY QUESTION_SEQ)
 		where no between #{rowStart} and #{rowEnd}
-		ORDER BY QUESTION_SEQ 
 		 ]]>
 	</select>
 	<select id="questionListAll" parameterType="com.group.exam.utils.Criteria" 
 	resultType="com.group.exam.admin.command.AdminQuestionMember">
-		<![CDATA[
-		select * from
-		(select rownum as no, question_seq, question_content, member_nickname, member_seq from
-		(select Q.QUESTION_SEQ, Q.QUESTION_CONTENT, M.MEMBER_NICKNAME, M.MEMBER_SEQ
-		from MEMBER M
-		right join
-		QUESTION Q
-		on
-		M.MEMBER_SEQ = Q.MEMBER_SEQ
-		where Q.QUESTION_STATUS= 'T' order by question_seq)
-		order by rownum)
-		where no between #{rowStart} and #{rowEnd} ]]>
+<![CDATA[ select * from (select rownum as no, question_seq, question_content, member_nickname, member_seq from 
+(select Q.QUESTION_SEQ, Q.QUESTION_CONTENT, M.MEMBER_NICKNAME, M.MEMBER_SEQ from
+ MEMBER M right join QUESTION
+ Q on M.MEMBER_SEQ = Q.MEMBER_SEQ 
+where Q.QUESTION_STATUS= 'T' order by question_seq) order by rownum) 
+where no between #{rowStart} and #{rowEnd} ]]>
 	</select>
 	
 	<insert id="questionAdd" parameterType="com.group.exam.question.vo.QuestionVo">
-		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTEN)
-		VALUES (Q_SEQ.nextval, #{questionContent})
+		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTENT, member_seq)
+		VALUES (Q_SEQ.nextval, #{questionContent}, -1)
 	</insert>
 	
 	<select id="adminboardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria">
 		<![CDATA[
  			select * from 
- 			(select ROWNUM as rn, B.BOARD_SEQ, B.BOARD_TITLE, M.MEMBER_NICKNAME, B.BOARD_COUNT, B.BOARD_LIKE,
- 			TO_CHAR(B.BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY 
- 			from MEMBER M 
+                (select  ROWNUM as rn, BOARD_SEQ, BOARD_TITLE, MEMBER_NICKNAME, BOARD_COUNT, BOARD_LIKE,
+                TO_CHAR(BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY   from 
+                (select *
+                from MEMBER M 
  			right join BOARD B 
- 			on M.MEMBER_SEQ = B.MEMBER_SEQ)
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ order by board_seq desc) order by rownum)
  			where rn BETWEEN #{rowStart} and #{rowEnd} 
-			ORDER BY BOARD_SEQ DESC 
  		]]> 
 	</select>
 	<select id="countBoardList" resultType="Integer">
@@ -126,5 +119,23 @@
 	select count(*) FROM QUESTION where QUESTION_STATUS = 'F'
 	</select>
 	
+	<!-- rank 매기기(게시물 갯수 기준) -->
+	<select id="memberRank" resultType="com.group.exam.admin.command.AdminRankCommand">
+		select * from (select member.member_id, member.member_nickname, count(board.board_seq) as count,
+rank() over (order by count(board.board_seq) desc) as rank from board join 
+member on member.member_seq = board.member_seq group by member_id, member_nickname )where rank between 1 and 10
+	</select>
 	
+	<select id="memberRankReply" resultType="com.group.exam.admin.command.AdminRankCommand">
+	select * from (select member.member_id, member.member_nickname, count(reply.reply_seq) as count,
+rank() over (order by count(reply.reply_seq) desc) as rank from reply join
+member on member.member_seq = reply.member_seq group by member_id, member_nickname)where rank between 1 and 10
+	</select>
+	
+	<select id="memberRankDiary" resultType="com.group.exam.admin.command.AdminRankCommand">
+	select * from (select member.member_id, member.member_nickname, count(diary.diary_seq) as count,
+rank() over (order by count(diary.diary_seq) desc) as rank from diary join
+member on member.member_seq = diary.member_seq group by member_id, member_nickname)where rank between 1 and 10
+	
+	</select>
 </mapper>

@@ -5,10 +5,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>닉네임 변경</title>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<title>QCali :: 비밀번호 변경</title>
+<!-- 제이쿼리 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<style type="text/css">
+	body{
+		padding: 10%;
+		text-align: center;
+	}
+
+</style>
 
 </head>
 	<script type="text/javascript">
@@ -48,27 +71,21 @@
 <body>
 
 
-<h3>닉네임 변경</h3> 
 
-현재 닉네임 : ${memberLogin.memberNickname} <br>
+<div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">현재 닉네임 : ${memberLogin.memberNickname}</label>
+
+		 <div class="col-sm-10">
+
 <form>
 
-<table border="1">
-
-		<tr>
-			<th>닉네임</th><td>
-			<input type="text" id="memberNickname" />
-			
-			<button type="button" onclick="nickCheck()">중복확인</button>
-			<span id="nickSame"></span>
-			</td>
-		</tr>
-
-	</table>
+ <label class="col-sm-2 col-form-label">변경 할 닉네임을 입력하세요.</label><br>
+			<input type="text" id="memberNickname" class="form-control"/>
+					<span id="nickSame"></span>
+			<button type="button" onclick="nickCheck()" class="btn btn-default">중복확인</button><br><br>
 	
-	<br>
-	
-		<button type="button" onClick="submit_close()" id="insertData" disabled >닉네임 변경하기</button>
+
+		<button type="button" onClick="submit_close()" id="insertData" class="btn btn-outline-primary" disabled >닉네임 변경하기</button>
 	
 	
 	<script>
@@ -95,6 +112,8 @@
 
 	</script>
 </form>
+</div>
+</div>
 
 
 

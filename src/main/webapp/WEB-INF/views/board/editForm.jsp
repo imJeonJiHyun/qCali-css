@@ -6,65 +6,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<title>QCali :: boardEditForm</title>
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+	
 
 <script type="text/javascript"
 	src="<c:url value="/resources"/>/static/js/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
+	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
+	<br><br>
+	<article>
+
+	<div class="container">
+	
 	<c:if test="${!empty memberLogin}">
-		<h2>로그인 성공</h2>
-		<table border="1">
-			<tr>
-				<th>회원 번호</th>
-				<th>회원 ID</th>
-				<th>회원 닉네임</th>
-				<th>회원 생일</th>
-				<th>회원 가입 날짜</th>
-				<th>회원 인증 여부</th>
-				<th>회원 레벨</th>
-			</tr>
-			<tr>
-				<td>${memberLogin.memberSeq}</td>
-				<td>${memberLogin.memberId}</td>
-				<td>${memberLogin.memberNickname}</td>
-				<td>${memberLogin.memberBirthDay}</td>
-				<td>${memberLogin.memberRegDay}</td>
-				<td>${memberLogin.memberAuth}</td>
-				<td>${memberLogin.memberLevel}</td>
 
-
-			</tr>
-		</table>
-		<a href="<c:url value='/member/logout'/>"><button>로그아웃</button></a>
-	</c:if>
 	<form:form commandName="boardEditData">
-		<table border="1">
-			<tr>
-				<td>제목</td>
-				<td><input name="boardTitle" value="${ articleInfo.boardTitle}"/> 
-				<form:errors path="boardTitle" /></td>
-
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea name="boardContent" id="boardContent"> ${ articleInfo.boardContent }</textarea>
+		<div class="mb-3">
+				<input name="boardTitle" value="${ articleInfo.boardTitle}" class="form-control"/> 
+				<form:errors path="boardTitle" />
+				</div>
+				<br>
+				<div class="mb-3">
+	
+				<textarea name="boardContent" id="boardContent" class="form-control"> ${ articleInfo.boardContent }</textarea>
 						<script type="text/javascript">	
-			CKEDITOR.replace('boardContent',
+			CKEDITOR.replace('boardContent', {height:400},
 			{filebrowserUploadUrl:'${pageContext.request.contextPath}/board/ckUpload'
 			});
 		</script>
 				
-				<form:errors path="boardContent" /></td>
+				<form:errors path="boardContent" /></div>
 
-			</tr>
-		</table>
-
-		
-		<input type="submit" value="수정하기" />
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<input type="submit" value="수정하기" class="btn btn-secondary"/>
+		</div>
 	</form:form>
 
+	</c:if>
+</div>
+</article>
+<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
+<c:if test="${empty memberLogin}">
+		
+		    <script>
+
+	alert("로그인인 해주세요.");
+	document.location.href="<c:url value='/main'/>";
+</script>
+		
+		
+		</c:if>
 </body>
 </html>

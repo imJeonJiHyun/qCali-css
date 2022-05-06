@@ -36,9 +36,8 @@
 <form action="${pageContext.request.contextPath}/member/questionAdd" method="POST" >
 
 <div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label"><h3>Question 등록</h3></label>
-  <textarea class="form-control"  name="questionContent" id="exampleFormControlTextarea1" rows="3" required ></textarea>
-
+  <label class="form-label"><h3>Question 등록</h3></label>
+  <textarea class="form-control"  name="questionContent" id="exampleFormControlTextarea1" rows="3" required placeholder="10자 이상 입력해주세요."></textarea>
   ${msg}
 </div>
 	<br>
@@ -50,6 +49,7 @@
 
 
 </div>
+
 
 </body>
 </html>
