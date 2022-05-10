@@ -5,11 +5,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="<c:url value='/resources/static/css/dropdown.css'/> "
+   rel="stylesheet" type="text/css">
+
+<meta charset="UTF-8" name="viewport"
+   content="width=device-width, initial-scale=1">
+<title>QCali :: boardDetail</title>
+
 <style>
 .box {
    width: 1300px;
-   padding-top: 3%;
-   padding-left: 15%;
+   margin: auto;
+}
+
+.reply_box {
+   text-align:center;
 }
 
 .board_title {
@@ -32,84 +42,97 @@
 
 #reply {
    display: block;
-   width: 400px;
+   width : 800px;
+   margin : auto;
    border-bottom: 1px solid black;
 }
 
-#reply_content {
-   border: 1px solid black;
-}
 </style>
-<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-<title>QCali :: boardDetail</title>
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<!-- bootstrap css -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
+<link href="<c:url value='/resources/static/css/button.css'/> "
+   rel="stylesheet" type="text/css">
 </head>
 <body>
    <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
    <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
-   <jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
-   
+
    <div class="container">
       <div class="box">
          <table class="table table-sm caption-top">
             <caption>일문일답 | ${boardList.boardSeq} 번째 글</caption>
          </table>
-		 <div>
+
          <p class="board_title">${boardList.boardTitle}</p>
-         <p class="board_info_box">${boardList.boardRegday}</p>
-         <p class="board_info_box">by
-            <c:if test="${empty boardList.memberNickname}">탈퇴 회원</c:if>
-            <c:if test="${!empty boardList.memberNickname}">
-               <div class="dropdown" style=" position: relative;  display: inline-block;">
-                  <a href="#" class="dropbtn">${boardList.memberNickname}</a>
-                  <div class="dropdown-content">
-                     <a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/> ">게시물 보기</a>
-                     <a href="${pageContext.request.contextPath}/diary/list/${boardlist.memberSeq}">일기장  보기</a>
-                     <a href=# onclick="popUpInfo();">회원 정보 보기</a>
-                  </div> <!-- dropdown-content end -->
-               </div> <!-- dropdown end -->
+         <p class="board_info_box" style=" position: relative;  display: inline-block;">${boardList.boardRegday} &nbsp;&nbsp;by
+            <c:if test="${empty boardList.memberNickname }">
+                  탈퇴 회원
             </c:if>
-         </p> <!-- member nickname click event end -->
-         </div> <!-- title, day, nickname list end -->
+            <c:if test="${!empty boardList.memberNickname }">
+               <div class="dropdown" style=" position: relative;  display: inline-block;">
+               <a href="" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${ boardList.memberNickname}</a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                     <li><a class="dropdown-item" href="${pageContext.request.contextPath }/board/memberArticle?memberSeq=${boardList.memberSeq}">게시물 보기</a></li>
+                     <li><a class="dropdown-item" href="${pageContext.request.contextPath }/diary/list/${boardList.memberSeq}">Diary 보기</a></li>
+                        <li><a class="dropdown-item" href="#" onClick="popUpInfo();">회원 정보 보기</a></li>                        
+                     </ul>
+                  </div>
+                     <script type="text/javascript">
+                              function popUpInfo() {
+                                 let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardList.memberSeq}";
+                                 let name = "Member 정보";
+                                 let specs = "height=300, width= 250, status = no, location= no, top=50, left=50";
+                                 window.open(url, name, specs);
+                              }
+                           </script>
+
+            </c:if>
+         </p>
          <p class="board_tag">조회수 : ${boardList.boardCount}, 공감 수 : ${boardList.boardLike}</p>
          <hr>
          <p>${boardList.boardContent}</p>
-      </div> <!-- box end -->
+      </div>
       
       <div style="margin-top: 2%; padding-left: 20%; float: right;">
          <c:if test="${myArticle == true}">
-            <button type="button" class="btn btn-outline-info" id="noticeUpdate" onclick="window:location='<c:url value='/board/edit?boardSeq=${boardList.boardSeq}'/>'">수정</button>
-            <button type="button" class="btn btn-outline-info" onClick="deleteConfirm();">삭제</button>
-            <input type="button" class="btn btn-outline-info" value="목록" onclick="location.href='<c:url value='/board/list'/>'">
+            <button type="button" class="btn btn-default" id="noticeUpdate"
+               onclick="window:location='<c:url value='/board/edit?boardSeq=${boardList.boardSeq}'/>'">수정</button>
+            <button type="button" class="btn btn-default"
+               onClick="deleteConfirm();">삭제</button>
+            <input type="button" class="btn btn-default" value="목록"
+               onclick="location.href='<c:url value='/board/list'/>'">
          </c:if>
-      </div> <!-- button list end -->
+      </div>
 
-      <div>
-         <a class="text-dark heart" style="text-decoration-line: none;"> <img id="heart" src="" height="30px"></a>
-      </div> <!-- heart end -->
 
-		<!-- 댓글 입력 폼 -->
-      	<div class="box">
-      	<br>
-      	<hr>
-      	<h5 style="padding-bottom:3%;">댓글 : [${replyTotal}] 개</h5>
-      	<table width="50%">
-      	<tr bgcolor="#F5F5F5">
-      	<td><div>${memberLogin.memberNickname}</div></td>
-      	<td><div><textarea id="replyContent" name="replyContent" rows="2" cols="50"></textarea></div></td>
-        <td><button type="button" class="btn btn-default" id="replywriteBtn" name="replywriteBtn">댓글 등록</button></td>
-      	</tr>
-      	</table>
-      	</div> <!-- box end -->
-      	
-      	<div id="replyList"></div>
-      	</div><!-- container end -->
+
+      <div >
+         <a class="text-dark heart" style="text-decoration-line: none;"> <img
+            id="heart" src="" height="30px">
+         </a>
+      </div>
+
+
+
+          <!-- 댓글 입력 폼 -->
+         <br>
+         <hr>
+         <br><br>
+         <h5 style="padding-bottom:3%; text-align:center;">댓글 : [${replyTotal}] 개</h5>
+         <div class="reply_box">
+         <table class="reply_box" width="100%">
+         <tr>
+         <td width=25%></td>
+         <td width=50%><textarea id="replyContent" name="replyContent" rows="3" cols="100"></textarea></td>
+         <td width=25%><button type="button" class="btn btn-default" id="replywriteBtn" name="replywriteBtn">댓글 등록</button></td>
+         </tr>
+         </table>
+         </div> <!-- reply_box end -->
+       <br>
+       <div id="replyList" class="reply_box" style="padding-bottom:10%;"></div>
+
+
+      
+      </div>
+      <jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
 
 
       <%--댓글 / 좋아요 관련 자바스크립트 --%>
@@ -120,16 +143,16 @@
          
          if (heartval > 0) {
             console.log(heartval);
-             $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/like2.png");
+             $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/heart-fill.svg");
             $(".heart").prop('name', heartval)
          } else {
             console.log(heartval);
-            $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/like1.png");
+            $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/heart.svg");
             $(".heart").prop('name', heartval)
          }
          $(".heart").on("click", function() {
             var that = $(".heart");
-            console.log(that.prop('name'));
+         
             var sendData = {
                'boardSeq' : '${boardSeq}',
                'heart' : that.prop('name'),
@@ -144,9 +167,9 @@
                   console.log("success:" + that.prop('name', data));
             
                   if (data == 1) {
-                      $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/like2.png");
+                      $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/heart-fill.svg");
                   } else {
-                      $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/like1.png");
+                      $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/heart.svg");
                   }
                }
             });
@@ -162,76 +185,54 @@
          function getreplylist() {
             var replyurl = "${root}reply/";
             var boardSeq = ${boardList.boardSeq};
-            var memberSeq = ${memberLogin.memberSeq};
-            var adminAuthInfoCommand = window.sesstionStorage.getItem("adminAuthInfoCommand");
-            var adminAuthInfoCommand = window.sesstionStorage.getItem("memberLogin");
-               
-      			if (adminAuthInfoCommand != null ) {
-          			memberSeq =  window.sesstionStorage.getItem("adminAuthInfoCommand.adminSeq");
-         		}
-         		if (memberLogin != null){
-             		memberSeq =  window.sesstionStorage.getItem("memberLogin.memberSeq");
-         		}
-         		
-         		$.ajax({
-                     url : replyurl + boardSeq,
-                     type : 'POST',
-                     dataType : 'json',
+            var memberSeq = -1;
 
-                     success : function(result) {
-                        console.log(result);
-                        var htmls = "";
+            if(localStorage.getItem("memberLogin") == null) {
+                memberSeq =  ${memberLogin.memberSeq};
+            }
+            
+         	$.ajax({
+         		url : replyurl + boardSeq,
+         		type : 'POST',
+         		dataType : 'json',
 
-                        if (result.length < 1) {
-                           htmls = "등록된 댓글이 없습니다.";
+         		success : function(result) {
+         			var htmls = "";
 
-                        } else {
-                           $(result)
-                                 .each(
-                                       function() {
-                                          htmls += '<div id="reply">'
-                                          htmls += '<div id="replySeq'+this.replySeq+'">';
-                                          htmls += '<br>작성자 : '
-                                                + '<div class = "dropdown"> '
-                                          htmls += '<a href="#" class="dropbtn">'
-                                                + this.memberNickname;
-                                          htmls += '</a> <div class="dropdown-content">'
-                                          htmls += '<a href="${pageContext.request.contextPath}/board/memberArticle?memberSeq='
-                                                + this.memberSeq
-                                                + '">게시물 보기</a>'
-                                          htmls += '<a href="${pageContext.request.contextPath }/diary/list/'+ this.memberSeq +'">일기장 보기</a>'
-                                          htmls += '<a href="#" onclick ="popUpInfo();">회원 정보 보기</a>'
-                                          htmls += '</div></div>'
-                                          htmls += '&nbsp;&nbsp;&nbsp;&nbsp;';
-                                          htmls += '작성 날짜 : '
-                                                + this.replyRegDay;
-                                          htmls += '<br/><p>';
-                                          htmls += '댓글 내용 : &nbsp;&nbsp; <div id="reply_content">'
-                                                + this.replyContent;
-                                          htmls += '</div></p>';
-                                          if (memberSeq == this.memberSeq) {
-                                             htmls += '<button type="button" class="btn btn-outline-success" onclick="updateviewBtn(\''
-                                                   + this.replySeq
-                                                   + '\', \''
-                                                   + this.replyContent
-                                                   + '\', \''
-                                                   + this.memberNickname
-                                                   + '\')">수정</button>&nbsp;&nbsp;';
-                                             htmls += '<button type="button" class="btn btn-outline-success" onclick="replyDeleteConfirm(\''
-                                                   + this.replySeq
-                                                   + '\')">삭제</button>';
-                                          }
-                                          htmls += '</div><br/>';
-                                          htmls += '</div>'
-                                       });
-                        }
-                        ;
-                        $("#replyList").html(htmls);
-                     }
-                  });
+            		if (result.length < 1) {
+               			htmls = "등록된 댓글이 없습니다.";
+            		} else {
+              			$(result).each(
+                  			function() {
+                     			htmls += '<div id="reply">'
+                     			htmls += '<div id="replySeq'+this.replySeq+'">'
+                     			htmls += '<br><br>'
+                     			htmls += '<div style="float:left;">작성자 : ' + '<div class = "dropdown">'
+                     			htmls += '<a href="#" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">' + this.memberNickname;
+                     			htmls += '</a> <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
+                     			htmls += '<li><a class="dropdown-item" href="${pageContext.request.contextPath}/board/memberArticle?memberSeq=' + this.memberSeq + '">게시물 보기</a></li>'
+                    			htmls += '<li><a class="dropdown-item" href="${pageContext.request.contextPath}/diary/list/'+ this.memberSeq +'">Diary 보기</a></li>'
+                     			htmls += '<li><a class="dropdown-item" href="#" onClick="popUpInfo();">회원 정보 보기</a></li>'
+                     			htmls += '</ul></div>&nbsp;&nbsp;&nbsp;'
+                     			htmls += '작성 날짜 : ' + this.replyRegDay;
+                     			htmls += '</div><br>'
+                     			htmls += '<table width="100%"><tr>'
+                    			htmls += '<td width=70%><div style="float:left;">' + this.replyContent;
+                  	 			htmls += '</div></td><td width=30%>'
+                     			if (memberSeq == this.memberSeq) {
+                     			htmls += '<div style="float:right;">'
+                     			htmls += '<button type="button" class="w-btn w-btn-green" onclick="updateviewBtn(\'' + this.replySeq + '\', \'' + this.replyContent + '\', \'' + this.memberNickname + '\')">수정</button>&nbsp;&nbsp;'
+                     			htmls += '<button type="button" class="w-btn w-btn-green" onclick="replyDeleteConfirm(\'' + this.replySeq + '\')">삭제</button>'
+                    			htmls += '</div>'
+                     			}
+                     			htmls += '</td></tr></table><br><br></div></div>'
+                     		});
+               		};
+               $("#replyList").html(htmls);
+               }
+            });
          }
 
-         
          //댓글 저장 함수
          $(document).on('click', '#replywriteBtn', function() {
             var replyContent = $('#replyContent').val();
@@ -262,7 +263,6 @@
                }
             });
          });
-         
 
          //댓글 수정 폼 불러오기 함수
          function updateviewBtn(replySeq, replyContent, memberNickname) {
@@ -276,9 +276,9 @@
             htmls += '<textarea class="form-control" id="replyUpdateContent">';
             htmls += replyContent;
             htmls += '</textarea></p><br/>';
-            htmls += '<button type="button" class="btn btn-outline-success" onclick="replyUpdateConfirm(\''
+            htmls += '<button type="button" class="btn btn-default" onclick="replyUpdateConfirm(\''
                   + replySeq + '\')">수정 완료</button>&nbsp;&nbsp;';
-            htmls += '<button type="button" class="btn btn-outline-success" onclick="getreplylist()">수정 취소</button>';
+            htmls += '<button type="button" class="btn btn-default" onclick="getreplylist()">수정 취소</button>';
             htmls += '</div><br/>';
             $('#replySeq' + replySeq).replaceWith(htmls);
             $('#replySeq' + replySeq + '#replyContent').focus();
@@ -328,7 +328,6 @@
             });
          }
 
-         
          //댓글 삭제 호출 함수
          function replyDeleteConfirm(replySeq) {
             var delConfirm = confirm('정말 댓글을 삭제하시겠습니까?');
@@ -368,7 +367,7 @@
          }
          
       
-      //글 삭제시 이벤트 처리
+         //글 삭제시 이벤트 처리
       function deleteConfirm(){
          if(!confirm("정말 삭제하시겠습니까?")){
             return false;
@@ -378,14 +377,5 @@
          }
       }
       </script>
-      
-      <script type="text/javascript">
-      	function popUpInfo() {
-        	let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardList.memberSeq}";
-            let name = "Member 정보";
-            let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
-            window.open(url, name, specs);
-        }
-     </script>
 </body>
 </html>
