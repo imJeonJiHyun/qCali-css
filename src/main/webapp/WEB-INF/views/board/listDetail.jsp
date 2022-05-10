@@ -53,7 +53,8 @@
 <body>
    <jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
    <jsp:include page="/WEB-INF/views/main/sidebar_board.jsp"></jsp:include>
-
+   <jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
+   
    <div class="container">
       <div class="box">
          <table class="table table-sm caption-top">
@@ -62,65 +63,54 @@
 		 <div>
          <p class="board_title">${boardList.boardTitle}</p>
          <p class="board_info_box">${boardList.boardRegday}</p>
-         <div style="float:left;">
          <p class="board_info_box">by
-            <c:if test="${empty boardList.memberNickname}">
-                  	탈퇴 회원
-            </c:if>
+            <c:if test="${empty boardList.memberNickname}">탈퇴 회원</c:if>
             <c:if test="${!empty boardList.memberNickname}">
-               <div class="dropdown">
+               <div class="dropdown" style=" position: relative;  display: inline-block;">
                   <a href="#" class="dropbtn">${boardList.memberNickname}</a>
                   <div class="dropdown-content">
-                     <a
-                        href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/> ">게시물
-                        보기</a> <a
-                        href="${pageContext.request.contextPath}/diary/list/${boardlist.memberSeq}">일기장
-                        보기</a> <a href=# onclick="popUpInfo();">회원 정보 보기</a>
-                  </div>
-               </div>
+                     <a href="<c:url value='/board/memberArticle?memberSeq=${boardList.memberSeq}'/> ">게시물 보기</a>
+                     <a href="${pageContext.request.contextPath}/diary/list/${boardlist.memberSeq}">일기장  보기</a>
+                     <a href=# onclick="popUpInfo();">회원 정보 보기</a>
+                  </div> <!-- dropdown-content end -->
+               </div> <!-- dropdown end -->
             </c:if>
-         </p>
-         </div>
-         </div>
+         </p> <!-- member nickname click event end -->
+         </div> <!-- title, day, nickname list end -->
          <p class="board_tag">조회수 : ${boardList.boardCount}, 공감 수 : ${boardList.boardLike}</p>
          <hr>
          <p>${boardList.boardContent}</p>
-      </div>
+      </div> <!-- box end -->
       
       <div style="margin-top: 2%; padding-left: 20%; float: right;">
          <c:if test="${myArticle == true}">
-            <button type="button" class="btn btn-outline-info" id="noticeUpdate"
-               onclick="window:location='<c:url value='/board/edit?boardSeq=${boardList.boardSeq}'/>'">수정</button>
-            <button type="button" class="btn btn-outline-info"
-               onClick="deleteConfirm();">삭제</button>
-            <input type="button" class="btn btn-outline-info" value="목록"
-               onclick="location.href='<c:url value='/board/list'/>'">
+            <button type="button" class="btn btn-outline-info" id="noticeUpdate" onclick="window:location='<c:url value='/board/edit?boardSeq=${boardList.boardSeq}'/>'">수정</button>
+            <button type="button" class="btn btn-outline-info" onClick="deleteConfirm();">삭제</button>
+            <input type="button" class="btn btn-outline-info" value="목록" onclick="location.href='<c:url value='/board/list'/>'">
          </c:if>
-      </div>
+      </div> <!-- button list end -->
 
       <div>
-         <a class="text-dark heart" style="text-decoration-line: none;"> <img
-            id="heart" src="" height="30px">
-         </a>
-      </div>
+         <a class="text-dark heart" style="text-decoration-line: none;"> <img id="heart" src="" height="30px"></a>
+      </div> <!-- heart end -->
 
-      <!-- 댓글 입력 폼 -->
-      <br>
-      <hr />
-      <h5>댓글 : [ ${replyTotal} ] 개</h5>
-      &nbsp;&nbsp;
-      <div id="replyList"></div>
+		<!-- 댓글 입력 폼 -->
+      	<div class="box">
+      	<br>
+      	<hr>
+      	<h5 style="padding-bottom:3%;">댓글 : [${replyTotal}] 개</h5>
+      	<table width="50%">
+      	<tr bgcolor="#F5F5F5">
+      	<td><div>${memberLogin.memberNickname}</div></td>
+      	<td><div><textarea id="replyContent" name="replyContent" rows="2" cols="50"></textarea></div></td>
+        <td><button type="button" class="btn btn-default" id="replywriteBtn" name="replywriteBtn">댓글 등록</button></td>
+      	</tr>
+      	</table>
+      	</div> <!-- box end -->
+      	
+      	<div id="replyList"></div>
+      	</div><!-- container end -->
 
-      <div class="col-md-6">
-         <label for="memberNickname" id="memberNickname">작성자 :
-            ${memberLogin.memberNickname}</label><br /> <label for="replyContent">
-            댓글 : </label>
-         <textarea class="form-control" id="replyContent" name="replyContent"></textarea>
-         <button type="button" class="btn btn-outline-success"
-            id="replywriteBtn" name="replywriteBtn">댓글 작성</button>
-      </div>
-</div>
-<jsp:include page="/WEB-INF/views/main/footer.jsp"></jsp:include>
 
       <%--댓글 / 좋아요 관련 자바스크립트 --%>
       <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -175,18 +165,15 @@
             var memberSeq = ${memberLogin.memberSeq};
             var adminAuthInfoCommand = window.sesstionStorage.getItem("adminAuthInfoCommand");
             var adminAuthInfoCommand = window.sesstionStorage.getItem("memberLogin");
-            
-            
-            
-      if (adminAuthInfoCommand != null ) {
-          memberSeq =  window.sesstionStorage.getItem("adminAuthInfoCommand.adminSeq");
-            
-         } 
-         
-         if (memberLogin != null){
-             memberSeq =  window.sesstionStorage.getItem("memberLogin.memberSeq");
-         }
-         $.ajax({
+               
+      			if (adminAuthInfoCommand != null ) {
+          			memberSeq =  window.sesstionStorage.getItem("adminAuthInfoCommand.adminSeq");
+         		}
+         		if (memberLogin != null){
+             		memberSeq =  window.sesstionStorage.getItem("memberLogin.memberSeq");
+         		}
+         		
+         		$.ajax({
                      url : replyurl + boardSeq,
                      type : 'POST',
                      dataType : 'json',
@@ -244,6 +231,7 @@
                   });
          }
 
+         
          //댓글 저장 함수
          $(document).on('click', '#replywriteBtn', function() {
             var replyContent = $('#replyContent').val();
@@ -274,6 +262,7 @@
                }
             });
          });
+         
 
          //댓글 수정 폼 불러오기 함수
          function updateviewBtn(replySeq, replyContent, memberNickname) {
@@ -339,6 +328,7 @@
             });
          }
 
+         
          //댓글 삭제 호출 함수
          function replyDeleteConfirm(replySeq) {
             var delConfirm = confirm('정말 댓글을 삭제하시겠습니까?');
@@ -378,7 +368,7 @@
          }
          
       
-         //글 삭제시 이벤트 처리
+      //글 삭제시 이벤트 처리
       function deleteConfirm(){
          if(!confirm("정말 삭제하시겠습니까?")){
             return false;

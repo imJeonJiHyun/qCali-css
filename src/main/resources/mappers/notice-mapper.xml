@@ -6,9 +6,12 @@
 
 <mapper namespace="NoticeDao">
 	<select id="noticeSelectAll" resultType="noticeVo" parameterType="com.group.exam.utils.Criteria">
-		select * from 
-		(select rownum, notice_seq, notice_title, to_char(notice_reg_day,'yyyy.mm.dd') notice_reg_day from NOTICE order by NOTICE_SEQ desc)
-		where rownum between #{rowStart} and #{rowEnd}
+		
+		        		select * from 
+		(select ROWNUM as no, notice_seq, notice_title, to_char(notice_reg_day,'yyyy.mm.dd') notice_reg_day
+		from notice  ORDER BY notice_seq desc)
+		where no between #{rowStart} and #{rowEnd}
+		
 	</select>
 	
 	<select id="noticeDetail" parameterType="Long" resultType="noticeVo">

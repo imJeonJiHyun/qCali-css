@@ -27,6 +27,8 @@
 }
 </style>
 <meta charset="UTF-8">
+<link href="<c:url value='/resources/static/css/button.css'/> "
+	rel="stylesheet" type="text/css">
 <title>공지 사항 Detail</title>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -49,27 +51,29 @@
 		
 		<div style="margin-top:2%; padding-left:20%; padding-bottom:10%; float:right;">
 			<c:if test="${adminAuthInfoCommand != null}">
-			<button type="button" class="btn btn-default" id="noticeUpdate" onclick="window:location='<c:url value='/notice/update?noticeSeq=${notice.noticeSeq}'/>'">수정</button>
-			<button type="button" class="btn btn-default" onClick="deleteConfirm();">삭제</button>
-			<input type="button" class="btn btn-default" value="목록" onclick="location.href='<c:url value='/notice/list'/>'">
+			<button type="button" class="w-btn w-btn-green" id="noticeUpdate" onclick="window:location='<c:url value='/notice/update?noticeSeq=${notice.noticeSeq}'/>'">수정</button>
+			<button type="button" class="w-btn w-btn-green" onClick="deleteConfirm();">삭제</button>
+			<input type="button" class="w-btn w-btn-green" value="목록" onclick="location.href='<c:url value='/notice/list'/>'">
 			</c:if>
 		</div>
+		</div>
 		
-		<!-- 댓글 입력 폼 -->
-   	<br><br><hr>
-	<h5>댓글 : [ ${replyTotal} ] 개</h5>&nbsp;&nbsp;
-	
-	<div class="col-md-6">
-		<label for="memberNickname" id="memberNickname">작성자 : ${memberLogin.memberNickname}</label><br/>
-		<label for="replyContent"> 댓글 : </label>
-		<textarea class="form-control" id="replyContent" name="replyContent"></textarea>
-		<button type="button" class="btn btn-default" id="replywriteBtn" name="replywriteBtn">댓글 작성</button>
-	</div>
-	
-	<div id="replyList" style="padding-bottom:10%;"></div>
+	 <%--   <!-- 댓글 입력 폼 -->
+      	<br>
+      	<hr><h5 class="box" style="padding-bottom:5%;">댓글 : [${replyTotal}] 개</h5><br><br>
+      	<table border="1" width="200px">
+      	<tr bgcolor="#F5F5F5">
+      	<td width="150">
+      	<div>${memberLogin.memberNickname}</div></td>
+      	<td width="550">
+        <div><textarea id="replyContent" name="replyContent" rows="4" cols="70"></textarea></div></td>
+        <td width="100">
+        <div><button type="button" class="btn btn-default" id="replywriteBtn" name="replywriteBtn">댓글 등록</button></div></td>
+      	</tr></table>
+      	<div id="replyList"></div></div>
 
 
-	<%--댓글  관련 자바스크립트 --%>
+	댓글  관련 자바스크립트 
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script>
 		//댓글 리스트 호출 함수
@@ -252,7 +256,6 @@
 				location.href="<c:url value='/notice/delete?noticeSeq='/>"+${notice.noticeSeq};
 			}
 		}
-	</script>
-   </div>
+	</script>--%>
   </body>
 </html>
